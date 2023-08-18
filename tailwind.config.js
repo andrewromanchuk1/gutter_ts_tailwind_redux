@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        titillium: ['Titillium Web', 'sans-serif']
+        titillium: ['Titillium Web', 'sans-serif'],
       },
       colors: {
         conduit: {
@@ -13,6 +13,15 @@ module.exports = {
       },
       spacing: {
         navItem: '0.425rem'
+      },
+      boxShadow: {
+        banner: 'inset 0 8px 8px -8px rgba(0, 0, 0, 0.3), inset 0 -8px 8px -8px rgba(0, 0, 0, 0.3)'
+      },
+      dropShadow: {
+        logo: '0px 1px 3px rgba(0, 0, 0, 0.3)'
+      },
+      fontSize: {
+        logo: '3.5rem'
       }
     },
   },
