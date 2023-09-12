@@ -7,7 +7,7 @@ type HeaderProps = {}
 
 const Header: React.FC<HeaderProps> = () => {
 
-   const navLinkClasses = ({isActive}: {isActive: Boolean}) => clsx('py-navItem', {
+   const navLinkClasses = ({isActive}: {isActive: Boolean}) => clsx('py-navItem hover:text-black/60 hover:no-underline', {
       'text-black/30': !isActive,
       'text-black/80': isActive
    });

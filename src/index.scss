@@ -5,5 +5,13 @@
 @layer base {
    body {
       font-family: 'Source Sans 3', sans-serif;
+      color: rgb(55, 58, 60);
+   }
+   a {
+      @apply text-conduit-green;
+      &:hover {
+         @apply underline;
+         @apply text-conduit-darkGreen;
+      }
    }
  }
