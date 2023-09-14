@@ -1,43 +1,54 @@
 import {FC} from 'react'
 import { Link } from 'react-router-dom'
 import defaultAva from '../../../../assets/defaultAva.png'
-import FavoriteButton from '../../../../common/components/favourite-button/favourite-button.component';
-import TagList from '../../../../common/components/tag-list/tag-list.component';
+import FavoriteButton from '../favourite-button/favourite-button.component';
+import TagList from '../tag-list/tag-list.component';
+import { FeedArticle } from '../../api/dto/global-feed.in';
+import { DateTime } from 'luxon';
 
-type ArticleProps = {}
+interface ArticleProps extends FeedArticle {}
 
-const Article: FC<ArticleProps> = () => {
+const Article: FC<ArticleProps> = ({ 
+  author,
+  createdAt,
+  favoritesCount,
+  title,
+  description,
+  tagList
+ }) => {
   return <article>
     <div className='border-t border-black-10 py-6'>
-      <div className='mb-4 font-light flex'>
-        <Link to='/@roma1'>
+      <div className='mb-4 font-light flex justify-between'>
+        <div className='flex'>
+        <Link to={`/@${author.username}`}>
           <img 
            className='inline-block h-8 w-8 rounded-full'
-           src={defaultAva} 
-           alt='avatar'/>
+           src={author.image} 
+           alt={`${author.username} avatar`}/>
         </Link>
         <div className='mr-6 ml-0.3 inline-flex leading-4 flex-col'>
-          <Link to='/@roma1' className='font-medium'>
-            Andrii Romanchuk
+          <Link to={`/@${author.username}`} className='font-medium'>
+            {author.username}
           </Link>
-          <span className='text-conduit-gray text-date'>December 9, 2022</span>
+          <span className='text-conduit-gray text-date'>{DateTime.fromISO(createdAt).toLocaleString(DateTime.DATE_FULL)}</span>
         </div> 
-        <FavoriteButton />
+        </div>
+        <FavoriteButton count={favoritesCount}/>
       </div>
-      <Link to='/article/qwert' className='hover:no-underline'>
+      <Link to={`/@${author.username}`} className='hover:no-underline'>
         <h2 className='mb-1 font-semibold text-2xl text-conduit-darkestGray'>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi repellat, ipsa corporis perspiciatis quibusdam nisi praesentium fugit voluptatibus quia quam nobis veniam totam fugiat sit dolorem. Blanditiis placeat neque illo.
+          {title}
         </h2>
         <p className='text-conduit-darkenGray font-light'>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi repellat, ipsa corporis perspicia
+          {description}
         </p>
         <div className='flex justify-between'>
           <span className='text-conduit-gray text-date font-light'>Read more...</span>
-          <TagList />          
+          <TagList list={tagList}/>          
         </div>
       </Link>
     </div>
   </article>
 }
 
-export default Article
+export default Article; 
