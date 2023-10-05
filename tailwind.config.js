@@ -8,20 +8,31 @@ module.exports = {
       },
       colors: {
         conduit: {
+          gray: {
+            100: '#f3f3f3',
+            200: '#eceeef',
+            300: '#ddd',
+            400: '#ccc',
+            500: '#bbb',
+            650:  '#a1a1a1',
+            600: '#aaa',
+            700: '#999',
+            800: '#818a91',
+            900: '#687077',
+            1000: '#373a3c',
+          },
           green: '#5CB85C',
           darkGreen: '#3d8b3d',
-          gray: '#bbb',
-          lightenGray: '#ddd',
-          tag: '#aaa',
-          darkestGray: '#373a3c',
-          darkenGray: '#999'
         }
       },
       spacing: {
-        navItem: '0.425rem',
-        0.3: '0.3rem',
         0.2: '0.2rem',
+        0.3: '0.3rem',
+        0.37: '0.37rem',
+        navItem: '0.425rem',
+        0.45: '0.45rem',
         tag: '0.6rem',
+        25: '6.25rem',
       },
       boxShadow: {
         banner: 'inset 0 8px 8px -8px rgba(0, 0, 0, 0.3), inset 0 -8px 8px -8px rgba(0, 0, 0, 0.3)'
