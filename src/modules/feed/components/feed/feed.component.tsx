@@ -1,13 +1,12 @@
 import React from 'react'
-import Container from '../../../../common/components/container/container.component'
+// import Container from '../../../../common/components/container/container.component'
 import ArticleList from '../article-list/article-list.component'
 import FeedToggle from '../feed-toggle/feed-toggle.component'
 import ReactPaginate from 'react-paginate'
 import { FEED_PAGE_SIZE } from '../../consts'
-import { useSearchParams } from 'react-router-dom'
-import { serializeSearchParams } from '../../../../utils/router'
 import TagCloud from '../tag-cloud/tag-cloud.component'
 import { GlobalFeedInDTO } from '../../api/dto/global-feed.in'
+import { usePageParam } from '../../hooks/use-page-param.hook'
 
 interface FeedProps {
    isLoading: boolean,
@@ -22,55 +21,51 @@ const Feed: React.FC<FeedProps> = ({
    error,
    data
 }) => {
-   const [searchParams, setSearchParams] = useSearchParams();
-   const page = searchParams.get('page') ? Number(searchParams.get('page')) : 0;
-
+   const {page, setPage} = usePageParam()
    const handleChange = ({selected}: {selected: number}) => {
-      setSearchParams(serializeSearchParams({ page: String(selected)}));
+      setPage(selected)
    }
    
 
    if(isLoading || isFetching) {
-      return <Container>
-         Feed loading...
-      </Container>
+      return <p className='mt-4'>
+         Loading articles...
+      </p>
    }
 
    if(error) {
-      return <Container>
+      return <p className='mt-4'>
          Some error has occured while loading feed.
-      </Container>
+      </p>
+   }
+
+   if(data?.articlesCount === 0) {
+      return <p className='mt-4'>
+         No articles are here... yet.
+      </p>
    }
 
   return (
-    <Container>
-      <FeedToggle/>
-      <div className='flex'>
-         <div className='w-3/4'>
-            <ArticleList list={data?.articles || []} />
-            <nav className='my-6'>
-               <ReactPaginate
-                  pageCount={(data?.articlesCount || 0) / FEED_PAGE_SIZE}
-                  pageRangeDisplayed={(data?.articlesCount || 0) / FEED_PAGE_SIZE}
-                  previousLabel={null}
-                  nextLabel={null}
-                  containerClassName='flex'
-                  pageClassName='group'
-                  pageLinkClassName='p-3 bg-white border border-conduit-gray-300 -ml-px hover:bg-conduit-gray-200 
-                  group-[:nth-child(2)]:rounded-l group-[:nth-last-child(2)]:rounded-r'
-                  activeClassName='active group'
-                  activeLinkClassName='group-[.active]:bg-conduit-green group-[.active]:text-white 
-                     group-[.active]:border-conduit-green'
-                  onPageChange={handleChange}
-                  forcePage={page}
-                  />
-            </nav>
-         </div>
-         <div className='w-1/4 pl-3'>
-            <TagCloud />
-         </div>
-      </div>
-    </Container>
+    <>      
+      <ArticleList list={data?.articles || []} />
+      <nav className='my-6'>
+         <ReactPaginate
+            pageCount={Math.ceil((data?.articlesCount || 0 )/ FEED_PAGE_SIZE)}
+            pageRangeDisplayed={(data?.articlesCount || 0) / FEED_PAGE_SIZE}
+            previousLabel={null}
+            nextLabel={null}
+            containerClassName='flex'
+            pageClassName='group'
+            pageLinkClassName='p-3 bg-white border border-conduit-gray-300 -ml-px hover:bg-conduit-gray-200 
+            group-[:nth-child(2)]:rounded-l group-[:nth-last-child(2)]:rounded-r'
+            activeClassName='active group'
+            activeLinkClassName='group-[.active]:bg-conduit-green group-[.active]:text-white 
+               group-[.active]:border-conduit-green'
+            onPageChange={handleChange}
+            forcePage={page}
+            />
+      </nav>
+    </>
   )
 }
 

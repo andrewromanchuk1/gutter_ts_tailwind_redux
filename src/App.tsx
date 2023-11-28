@@ -10,8 +10,9 @@ const App: React.FC<AppProps> = ({}) => {
   return <div className='pb-8'>
     <Header />
     <Routes>
-      <Route index element={<GlobalFeedPage />}/>
-      <Route path='/:@profile' element={<ProfilePage />}/>
+      <Route path='/' element={<GlobalFeedPage />} />
+      <Route path="/@/:profile" element={<ProfilePage />} />
+      <Route path="/@/:profile/favorites" element={<ProfilePage />} />
     </Routes>
   </div>
 }

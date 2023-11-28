@@ -1,1 +1,1 @@
-export const FEED_PAGE_SIZE = 10;
+export const FEED_PAGE_SIZE = 5;
