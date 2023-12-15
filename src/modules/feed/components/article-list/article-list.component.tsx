@@ -7,7 +7,6 @@ interface ArticleListProps {
 }
 
 const ArticleList: React.FC<ArticleListProps> = ({list}) => {
-  console.log(list)
   return (
     <div>
       {list.map((article) => (

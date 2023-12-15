@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { feedApi } from '../modules/feed/api/repository';
+import { profileApi } from '../modules/profile/api/repository';
 
 export const store = configureStore({
   reducer: {
    [feedApi.reducerPath]: feedApi.reducer,
+   [profileApi.reducerPath]: profileApi.reducer,
   },
-  middleware: (curryGetDefaultMiddleware) => curryGetDefaultMiddleware().concat(feedApi.middleware)
+  middleware: (curryGetDefaultMiddleware) => curryGetDefaultMiddleware().concat(feedApi.middleware).concat(profileApi.middleware)
 })
 
 export type RootState = ReturnType<typeof store.getState>;

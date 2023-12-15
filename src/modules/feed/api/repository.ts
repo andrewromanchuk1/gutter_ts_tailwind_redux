@@ -1,9 +1,10 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
-import { axiosBaseQuery } from '../../../core/axios-base-query/axios-base-query'
 import { GlobalFeedInDTO } from './dto/global-feed.in';
 import { FEED_PAGE_SIZE } from '../consts';
 import { PopularTagsInDTO } from './dto/popular-tags.in';
 import { transformResponse } from './utils';
+import { realWorldBaseQuery } from '../../../core/api/realworld-base-query';
+import { SingleArticleInDTO } from './dto/single-article.in';
 
 interface BaseFeedParams {
    page: number;
@@ -17,11 +18,13 @@ interface ProfileFeedParams extends BaseFeedParams{
    isFavorited?: boolean;
 }
 
+interface SingleArticleParams {
+   slug: string
+}
+
 export const feedApi = createApi({
    reducerPath: 'feedApi',
-   baseQuery: axiosBaseQuery({
-      baseUrl: 'https://api.realworld.io/api'
-   }),
+   baseQuery: realWorldBaseQuery,
    endpoints: (builder) => ({
       getGlobalFeed: builder.query<GlobalFeedInDTO, GlobalFeedParams>({
          query: ({page, tag}) => ({
@@ -50,8 +53,18 @@ export const feedApi = createApi({
          query: () => ({
             url: '/tags'
          })
+      }),
+      getSingleArticle: builder.query<SingleArticleInDTO, SingleArticleParams>({
+         query: ({ slug }) => ({
+            url: `/articles/${slug}`
+         })
       })
    })
 })
 
-export const { useGetGlobalFeedQuery, useGetPopularTagsQuery,  useGetProfileFeedQuery } = feedApi;
+export const { 
+   useGetGlobalFeedQuery, 
+   useGetProfileFeedQuery,
+   useGetPopularTagsQuery,  
+   useGetSingleArticleQuery,
+} = feedApi;
