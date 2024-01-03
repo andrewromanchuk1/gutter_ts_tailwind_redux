@@ -11,13 +11,13 @@ export enum NameStyleEnum {
 
 interface ArticleAuthorProps {
    author: Author;
-   createdAt: string;
+   publishedAt: string;
    nameStyle?: keyof typeof NameStyleEnum;
 }
 
 const ArticleAuthor: FC<ArticleAuthorProps> = ({ 
    author,
-   createdAt,
+   publishedAt,
    nameStyle = NameStyleEnum.GREEN
  }) => {
 
@@ -38,7 +38,7 @@ const ArticleAuthor: FC<ArticleAuthorProps> = ({
             <Link to={`/@/${encodeURIComponent(author.username)}`} className={userNameClasses}>
                {author.username}
             </Link>
-            <span className='text-conduit-gray-500 text-date'>{DateTime.fromISO(createdAt).toLocaleString(DateTime.DATE_FULL)}</span>
+            <span className='text-conduit-gray-500 text-date'>{DateTime.fromISO(publishedAt).toLocaleString(DateTime.DATE_FULL)}</span>
          </div> 
       </div>
    )

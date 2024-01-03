@@ -9,7 +9,7 @@ interface ArticleProps extends FeedArticle {}
 
 const Article: FC<ArticleProps> = ({ 
   author,
-  createdAt,
+  publishedAt,
   favoritesCount,
   title,
   description,
@@ -19,7 +19,7 @@ const Article: FC<ArticleProps> = ({
   return <article>
     <div className='border-t border-black-10 py-6'>
       <div className='mb-4 font-light flex justify-between'>
-        <ArticleAuthor author={author} createdAt={createdAt}/>
+        <ArticleAuthor author={author} publishedAt={publishedAt}/>
         <FavoriteButton count={favoritesCount}/>
       </div>
       <Link to={`/article/${encodeURIComponent(slug)}`} className='hover:no-underline'>

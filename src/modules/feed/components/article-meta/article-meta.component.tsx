@@ -5,26 +5,30 @@ import FavoriteButton from '../favourite-button/favourite-button.component'
 import { Author } from '../../api/dto/global-feed.in';
 
 interface ArticleMetaProps {
-   authorNameStyle?: keyof typeof NameStyleEnum;
    author: Author;
+   likes: number;
+   publishedAt: string;
+   authorNameStyle?: keyof typeof NameStyleEnum;
 }
 
 const ArticleMeta: FC<ArticleMetaProps> = ({ 
    authorNameStyle = NameStyleEnum.LIGHT,
-   author
+   author,
+   likes,
+   publishedAt
 }) => {
   return (
    <div>
       <div className='inline-block mb-4'>
          <ArticleAuthor 
             author={author}
-            createdAt={new Date().toISOString()}
+            publishedAt={publishedAt}
             nameStyle={authorNameStyle}
          />
       </div>
       <div className='inline-flex gap-1'>
-         <FollowButton username='Walter White' btnStyle='LIGHT'/>
-         <FavoriteButton count={97} extended/>
+         <FollowButton username={author.username} btnStyle='LIGHT'/>
+         <FavoriteButton count={likes} extended/>
       </div>
    </div>
   )

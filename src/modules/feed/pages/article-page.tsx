@@ -7,32 +7,50 @@ import { useGetSingleArticleQuery } from "../api/repository"
 import { useParams } from "react-router-dom"
 
 
-interface ArticlePageProps {
+interface ArticlePageProps {}
 
+const convertNewLines = (body: string) => {
+  return body.split('\\n').join(' ');
 }
 
 const ArticlePage: FC<ArticlePageProps> = () => {
   
   const {slug} = useParams();
 
-  const resp = useGetSingleArticleQuery({slug: slug!});
-  console.log(resp)
-  if(!resp.data && !resp.isLoading) {
+  const {data, isLoading} = useGetSingleArticleQuery({slug: slug!});
+
+  console.log(data)
+
+  if(isLoading) {
+    return <h1>Loading...</h1>
+  }
+
+  if(!data) {
     return <h1>Article not found</h1>
   }
   
   return (
     <>
-      <ArticleBanner title={resp.data?.article.title!} author={resp.data?.article.author!}/>
+      <ArticleBanner 
+        title={data.article.title} 
+        author={data.article.author!} 
+        likes={data.article.favoritesCount!}
+        publishedAt={data.article.createdAt}
+      />
       <Container>
         <div className="pb-8 border-b mb-6">
-          <p className="font-sourceSerif text-articleBody leading-articleBody mb-8">
-            Sunt excepturi ut dolore fuga.\nAutem eum maiores aut nihil magnam corporis consectetur sit. Voluptate et quasi optio eos et eveniet culpa et nobis.\nSint aut sint sequi possimus reiciendis nisi.\nRerum et omnis et sit doloribus corporis voluptas error.\nIusto molestiae tenetur necessitatibus dolorem omnis. Libero sed ut architecto.\nEx itaque et modi aut voluptatem alias quae.\nModi dolor cupiditate sit.\nDelectus consectetur nobis aliquid deserunt sint ut et voluptas.\nCorrupti in labore laborum quod. Ipsa laudantium deserunt. Ut atque harum inventore natus facere sed molestiae.\nQuia aliquid ut.\nAnimi sunt rem et sit ullam dolorem ab consequatur modi. Cupiditate officia voluptatum.\nTenetur facere eum distinctio animi qui laboriosam.\nQuod sed voluptatem et cumque est eos.\nSint id provident suscipit harum odio et. Et fuga repellendus magnam dignissimos eius aspernatur rerum. Quo perferendis nesciunt.\nDolore dolorem porro omnis voluptatibus consequuntur et expedita suscipit et.\nTempora facere ipsa.\nDolore accusamus soluta officiis eligendi.\nEum quaerat neque eum beatae odio. Ad voluptate vel.\nAut aut dolor. Cupiditate officia voluptatum.\nTenetur facere eum distinctio animi qui laboriosam.\nQuod sed voluptatem et cumque est eos.\nSint id provident suscipit harum odio et.          
-          </p>
-          <TagList list={['123', '321']}/>
-        </div>
+          <p className="font-sourceSerif text-articleBody leading-articleBody mb-8" dangerouslySetInnerHTML={{
+            __html: convertNewLines(data.article.body)
+          }}/>
+          <TagList list={data.article.tagList}/>
+        </div> 
         <div className="flex justify-center">
-          {/* <ArticleMeta authorNameStyle="GREEN"/> */}
+          <ArticleMeta
+            author={data.article.author}
+            likes={data.article.favoritesCount}
+            publishedAt={data.article.createdAt}
+            authorNameStyle="GREEN"
+          />
         </div>
       </Container>
     </>
