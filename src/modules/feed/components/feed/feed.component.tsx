@@ -7,6 +7,7 @@ import { FEED_PAGE_SIZE } from '../../consts'
 import TagCloud from '../tag-cloud/tag-cloud.component'
 import { GlobalFeedInDTO } from '../../api/dto/global-feed.in'
 import { usePageParam } from '../../hooks/use-page-param.hook'
+import Container from '../../../../common/components/container/container.component'
 
 interface FeedProps {
    isLoading: boolean,
@@ -21,7 +22,7 @@ const Feed: React.FC<FeedProps> = ({
    error,
    data
 }) => {
-   const {page, setPage} = usePageParam()
+   const {page, setPage} = usePageParam();
    const handleChange = ({selected}: {selected: number}) => {
       setPage(selected)
    }

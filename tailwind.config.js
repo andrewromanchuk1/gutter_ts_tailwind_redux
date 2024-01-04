@@ -12,7 +12,9 @@ module.exports = {
         conduit: {
           gray: {
             100: '#f3f3f3',
+            150: '#f5f5f5',
             200: '#eceeef',
+            250: '#e5e5e5',
             300: '#ddd',
             400: '#ccc',
             500: '#bbb',

@@ -5,6 +5,7 @@ import TagList from "../components/tag-list/tag-list.component"
 import ArticleMeta from "../components/article-meta/article-meta.component"
 import { useGetSingleArticleQuery } from "../api/repository"
 import { useParams } from "react-router-dom"
+import CommentsList from "../components/comments-list/comments-list.componnent"
 
 
 interface ArticlePageProps {}
@@ -52,6 +53,7 @@ const ArticlePage: FC<ArticlePageProps> = () => {
             authorNameStyle="GREEN"
           />
         </div>
+        <CommentsList />
       </Container>
     </>
   )
