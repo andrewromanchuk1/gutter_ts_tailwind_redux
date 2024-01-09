@@ -5,6 +5,7 @@ import GlobalFeedPage from './modules/feed/pages/global-feed-page'
 import ProfilePage from './modules/profile/pages/profile.page'
 import ArticlePage from './modules/feed/pages/article-page'
 import SignUpPage from './modules/auth/pages/sign-up.page'
+import SignInPage from './modules/auth/pages/sign-in.page'
 
 interface AppProps {}
 
@@ -17,6 +18,7 @@ const App: React.FC<AppProps> = ({}) => {
       <Route path="/@/:profile/favorites" element={<ProfilePage />} />
       <Route path="/article/:slug" element={<ArticlePage />} />
       <Route path="/register" element={<SignUpPage />} />
+      <Route path="/login" element={<SignInPage />} />
     </Routes>
   </div>
 }
