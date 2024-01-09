@@ -14,7 +14,7 @@ const Header: React.FC<HeaderProps> = () => {
 
   return (
       <header>
-         <nav className='px-2 py-4'>
+         <nav className='px-2 py-3'>
             <Container>
                <div className='flex justify-between items-center'>
                   <Link to='/' className='font-titillium text-2xl mr-8 text-conduit-green hover:no-underline hover:text-conduit-green'>
@@ -25,10 +25,10 @@ const Header: React.FC<HeaderProps> = () => {
                         <NavLink to='/' className={navLinkClasses}>Home</NavLink>
                      </li>
                      <li className='ml-4'>
-                        <NavLink to='/sign_in' className={navLinkClasses}>Sign in</NavLink>
+                        <NavLink to='/login' className={navLinkClasses}>Sign in</NavLink>
                      </li>
                      <li className='ml-4'>
-                        <NavLink to='/sign_up' className={navLinkClasses}>Sign up</NavLink>
+                        <NavLink to='/register' className={navLinkClasses}>Sign up</NavLink>
                      </li>
                   </ul>
                </div>
