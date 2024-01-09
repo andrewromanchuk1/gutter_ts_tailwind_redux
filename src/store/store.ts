@@ -5,7 +5,16 @@ import { profileApi } from '../modules/profile/api/repository';
 import { authApi } from '../modules/auth/api/repository';
 import { authSlice } from '../modules/auth/service/slice';
 import storage from 'redux-persist/lib/storage';
-import { persistReducer, persistStore } from 'redux-persist';
+import { 
+  persistReducer, 
+  persistStore,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,        
+} from 'redux-persist';
 
 const persistConfig = {
   key: 'conduit',
@@ -27,7 +36,9 @@ export const store = configureStore({
   reducer:  persistentReducer,
   middleware: (curryGetDefaultMiddleware) =>
   curryGetDefaultMiddleware({
-    serializableCheck: false,
+    serializableCheck: {
+      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+    },
   }).concat(
     feedApi.middleware, profileApi.middleware, authApi.middleware
     ),
