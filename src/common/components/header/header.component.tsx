@@ -8,7 +8,7 @@ type HeaderProps = {}
 
 const Header: React.FC<HeaderProps> = () => {
 
-   const { isLoggedIn, logOut } = useAuth();
+   const { isLoggedIn, user, logOut } = useAuth();
 
    const navLinkClasses = ({isActive}: {isActive: Boolean}) => clsx('py-navItem hover:text-black/60 hover:no-underline', {
       'text-black/30': !isActive,
@@ -31,11 +31,42 @@ const Header: React.FC<HeaderProps> = () => {
                         <>
                            <li className='ml-4'>
                              <NavLink 
+                                 to='/editor' 
+                                 className='text-black/30 py-navItem hover:text-black/60 hover:no-underline' 
+                              >
+                                 <i className='ion-compose mr-1' />
+                                 New article
+                              </NavLink>
+                           </li>
+                           <li className='ml-4'>
+                             <NavLink 
+                                 to='/settings' 
+                                 className='text-black/30 py-navItem hover:text-black/60 hover:no-underline' 
+                              >
+                                 <i className='ion-gear-a mr-1' />
+                                 Settings
+                              </NavLink>
+                           </li>
+                           <li className='ml-4'>
+                             <NavLink 
+                                 to={`${user?.username}`}
+                                 className={navLinkClasses} 
+                              >
+                                 <img 
+                                    alt={`${user?.username}  avatar`} 
+                                    src={user?.image} 
+                                    className='w-6 h-6 rounded-full mr-2 inline'
+                                 />
+                                 {user?.username}
+                              </NavLink>
+                           </li>
+                           <li className='ml-4'>
+                             <NavLink 
                                  to='/' 
                                  className='text-black/30 py-navItem hover:text-black/60 hover:no-underline' 
                                  onClick={logOut}
                               >
-                                    Sign out
+                                 Sign out
                               </NavLink>
                            </li>
                         </>
