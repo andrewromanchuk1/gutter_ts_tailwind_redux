@@ -12,7 +12,6 @@ interface TagListProps {
    itemStyle?: keyof typeof TagListStyle,
    itemAs?: 'li' | 'a'
 }
-
 const TagList: React.FC<TagListProps> = ({
   list,
   itemStyle = TagListStyle.LIGHT,

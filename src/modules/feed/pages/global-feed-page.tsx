@@ -7,6 +7,7 @@ import { usePageParam } from '../hooks/use-page-param.hook'
 import Container from '../../../common/components/container/container.component'
 import FeedToggle from '../components/feed-toggle/feed-toggle.component'
 import TagCloud from '../components/tag-cloud/tag-cloud.component'
+import { useAuth } from '../../auth/hooks/use-auth'
 
 type GlobalFeedPageProps = {}
 
@@ -17,10 +18,11 @@ const GlobalFeedPage: React.FC<GlobalFeedPageProps> = () => {
   const { data, error, isLoading, isFetching } = useGetGlobalFeedQuery({
     page,
     tag: searchParams.get('tag')
- });
+  });
+  const { isLoggedIn } = useAuth();
   return (
    <>
-      <Banner />
+      { !isLoggedIn && <Banner />}      
       <Container>
         <FeedToggle />
           <div className='flex'>
