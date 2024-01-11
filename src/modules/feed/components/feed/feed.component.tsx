@@ -22,11 +22,12 @@ const Feed: React.FC<FeedProps> = ({
    error,
    data
 }) => {
+
    const {page, setPage} = usePageParam();
+
    const handleChange = ({selected}: {selected: number}) => {
       setPage(selected)
-   }
-   
+   }   
 
    if(isLoading || isFetching) {
       return <p className='mt-4'>
@@ -42,7 +43,7 @@ const Feed: React.FC<FeedProps> = ({
 
    if(data?.articlesCount === 0) {
       return <p className='mt-4'>
-         No articles are here... yet.
+         No articles are here, yet...
       </p>
    }
 
