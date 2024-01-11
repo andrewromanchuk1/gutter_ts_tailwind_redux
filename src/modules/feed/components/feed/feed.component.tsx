@@ -1,13 +1,9 @@
 import React from 'react'
-// import Container from '../../../../common/components/container/container.component'
 import ArticleList from '../article-list/article-list.component'
-import FeedToggle from '../feed-toggle/feed-toggle.component'
 import ReactPaginate from 'react-paginate'
 import { FEED_PAGE_SIZE } from '../../consts'
-import TagCloud from '../tag-cloud/tag-cloud.component'
 import { GlobalFeedInDTO } from '../../api/dto/global-feed.in'
 import { usePageParam } from '../../hooks/use-page-param.hook'
-import Container from '../../../../common/components/container/container.component'
 
 interface FeedProps {
    isLoading: boolean,

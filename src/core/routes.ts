@@ -1,4 +1,3 @@
-import { FC    } from "react";
 import SignInPage from "../modules/auth/pages/sign-in.page";
 import SignUpPage from "../modules/auth/pages/sign-up.page";
 import ArticlePage from "../modules/feed/pages/article-page";
