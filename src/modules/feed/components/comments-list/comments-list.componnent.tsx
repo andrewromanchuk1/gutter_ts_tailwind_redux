@@ -36,6 +36,8 @@ const CommentsList: FC<CommentsListProps> = () => {
             author={comment.author}
             createdAt={comment.createdAt}
             key={comment.id}
+            slug={slug!}
+            isFavorited={false}
          />
       ))}
    </div>

@@ -19,7 +19,6 @@ export const axiosBaseQuery =
   > =>
   async ({ url, method = 'get', data, params }, { getState }) => {
     const state = getState() as RootState;
-    debugger
     const token = state[authSlice.name].user?.token
 
     try {

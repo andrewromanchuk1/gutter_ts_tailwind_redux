@@ -20,8 +20,6 @@ const ArticlePage: FC<ArticlePageProps> = () => {
 
   const {data, isLoading} = useGetSingleArticleQuery({slug: slug!});
 
-  console.log(data)
-
   if(isLoading) {
     return <h1>Loading...</h1>
   }
@@ -37,6 +35,8 @@ const ArticlePage: FC<ArticlePageProps> = () => {
         author={data.article.author!} 
         likes={data.article.favoritesCount!}
         publishedAt={data.article.createdAt}
+        slug={slug!}
+        isFavorited={data.article.favorited}
       />
       <Container>
         <div className="pb-8 border-b mb-6">
@@ -51,6 +51,8 @@ const ArticlePage: FC<ArticlePageProps> = () => {
             likes={data.article.favoritesCount}
             publishedAt={data.article.createdAt}
             authorNameStyle="GREEN"
+            slug={slug!}
+            isFavorited={data.article.favorited}
           />
         </div>
         <CommentsList />

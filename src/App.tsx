@@ -18,8 +18,8 @@ const App: React.FC<AppProps> = ({}) => {
   return <div className='pb-8'>
     <Header />
     <Routes>
-      {Object.values(routes).map((e, id) => (
-        <Route path={e.path} element={<e.Element />} key={id}/>
+      {Object.values(routes).map(route => (
+        <Route path={route.path} element={<route.Element />} key={`Route - ${route.path}`}/>
       ))}
     </Routes>
   </div>

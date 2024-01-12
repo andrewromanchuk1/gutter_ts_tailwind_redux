@@ -6,12 +6,16 @@ interface CommentItemProps {
    body: string;
    author: Author;
    createdAt: string;
+   slug: string;
+   isFavorited: boolean;
 } 
 
 const CommentItem: FC<CommentItemProps> = ({ 
    body,
    author,
-   createdAt
+   createdAt,
+   slug,
+   isFavorited,
  }) => {
   return (
    <div>
@@ -27,6 +31,8 @@ const CommentItem: FC<CommentItemProps> = ({
                showActionButtons={false}
                authorDirection="ROW"
                authorNameSize="SM"
+               slug={slug}
+               isFavorited={isFavorited}
             />
          </div>
       </div>
