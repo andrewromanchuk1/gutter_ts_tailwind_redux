@@ -32,16 +32,16 @@ const FeedToggle: React.FC<FeedToggleProps> = ({
   return (
     <div className='h-8'>
       <ul className='flex'>
-         <li>
-            { items.map((item) => ( 
-              <NavLink  to={item.link} className={globalFeedClasses} key={item.text}>
-                {item.text}
-              </NavLink>
-            ))}
-            <NavLink to={defaultLink} className={globalFeedClasses} end>
-              {defaultText}
+        <li>
+          <NavLink to={defaultLink} className={globalFeedClasses} end>
+            {defaultText}
+          </NavLink>
+          { items.map((item) => ( 
+            <NavLink  to={item.link} className={globalFeedClasses} key={item.text}>
+              {item.text}
             </NavLink>
-         </li>         
+          ))}
+        </li>         
          { tag && (
           <span className='bg-white border-b-2 border-conduit-green hover:no-underline pb-0.37 px-4 text-conduit-green'>
             # {tag}

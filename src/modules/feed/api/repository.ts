@@ -2,7 +2,7 @@ import { createApi } from '@reduxjs/toolkit/query/react'
 import { FeedArticle } from './dto/global-feed.in';
 import { FEED_PAGE_SIZE } from '../consts';
 import { PopularTagsInDTO } from './dto/popular-tags.in';
-import { replaceCacheArticle, transformResponse } from './utils';
+import { replaceCachedArticle, transformResponse } from './utils';
 import { realWorldBaseQuery } from '../../../core/api/realworld-base-query';
 import { SingleArticleInDTO } from './dto/single-article.in';
 import { ArticleCommentsInDTO } from './dto/article-comments.in';
@@ -37,9 +37,10 @@ interface FavoriteArticleParams {
 export const feedApi = createApi({
    reducerPath: 'feedApi',
    baseQuery: realWorldBaseQuery,
-   tagTypes: ['Article', 'Articles'],
+   // tagTypes: ['Article', 'Articles'],
    endpoints: (builder) => ({
       getGlobalFeed: builder.query<FeedData, GlobalFeedParams>({
+         keepUnusedDataFor: 1,
          query: ({page, tag, isPersonalFeed}) => ({
             url: isPersonalFeed ? '/articles/feed' : '/articles',
             params: {
@@ -49,15 +50,16 @@ export const feedApi = createApi({
             }
          }),
          transformResponse,
-         providesTags: result => 
-         result 
-            ? result?.articles.map(article => ({
-               type: 'Article',
-               slug: article.slug,
-            }))
-            : ['Articles'],
+         // providesTags: result => 
+         // result 
+            // ? result?.articles.map(article => ({
+         //       type: 'Article',
+         //       slug: article.slug,
+         //    }))
+         //    : ['Articles'],
       }),
       getProfileFeed: builder.query<FeedData, ProfileFeedParams>({
+         keepUnusedDataFor: 1,
          query: ({page, author, isFavorited = false}) => ({
             url: '/articles',
             params: {
@@ -68,6 +70,7 @@ export const feedApi = createApi({
             }
          }),
          transformResponse,
+         // providesTags: ['Articles'],
       }),
       getPopularTags: builder.query<PopularTagsInDTO, any>({
          query: () => ({
@@ -89,9 +92,10 @@ export const feedApi = createApi({
             url: `/articles/${slug}/favorite`,
             method: 'post',
          }),
+         // invalidatesTags: ['Articles'],
          onQueryStarted: async ({}, { dispatch, queryFulfilled, getState }) => {
-            await replaceCacheArticle(getState, queryFulfilled, dispatch, feedApi)
-         } 
+            await replaceCachedArticle(getState, queryFulfilled, dispatch, feedApi)
+         },
       }),
       unfavoriteArticle: builder.mutation<favoriteArticleInDTO, FavoriteArticleParams>({
          query: ({ slug }) => ({
@@ -99,7 +103,7 @@ export const feedApi = createApi({
             method: 'delete',
          }),
          onQueryStarted: async ({}, { dispatch, queryFulfilled, getState }) => {
-            await replaceCacheArticle(getState, queryFulfilled, dispatch, feedApi)
+            await replaceCachedArticle(getState, queryFulfilled, dispatch, feedApi)
          } 
       }),
    })

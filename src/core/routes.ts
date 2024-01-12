@@ -33,4 +33,8 @@ export const routes = {
       path: '/login',
       Element: SignInPage,
    },
+   settings: {
+      path: '/settings',
+      Element: GlobalFeedPage,
+   },
 }

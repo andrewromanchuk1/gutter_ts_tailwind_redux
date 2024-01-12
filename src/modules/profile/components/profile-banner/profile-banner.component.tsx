@@ -3,12 +3,23 @@ import Container from '../../../../common/components/container/container.compone
 import avatar from '../../../../assets/defaultAva.png'
 import FollowButton from '../follow-button/follow-button.component'
 import { Profile } from '../../api/dto/get-profile.in'
+import { useAuth } from '../../../auth/hooks/use-auth'
+import Button from '../../../../common/components/button/button.component'
+import { useNavigate } from 'react-router-dom'
+import { routes } from '../../../../core/routes'
 
 type ProfileBannerProps = {
   profile: Profile
 }
 
 const ProfileBanner: React.FC<ProfileBannerProps> = ({ profile }) => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  const goToSettings = () => {
+    navigate(routes.settings.path)
+  }
+
   return (
     <div className='bg-conduit-gray-100 pt-8 pb-4 mb-8'>
       <Container>
@@ -17,7 +28,12 @@ const ProfileBanner: React.FC<ProfileBannerProps> = ({ profile }) => {
             <h3 className='text-center font-bold text-2xl'>{profile.username}</h3>
          </div>
          <div className='flex justify-end'>
-            <FollowButton username={profile!.username}/>
+          { user?.username !== profile.username 
+            ? <FollowButton username={profile!.username}/>
+            : <Button onClick={goToSettings}>
+                <i className='ion-gear-a mr-1' />Edit profile settings
+              </Button>
+          }
          </div>
       </Container>
     </div>
