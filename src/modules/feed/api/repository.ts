@@ -37,7 +37,6 @@ interface FavoriteArticleParams {
 export const feedApi = createApi({
    reducerPath: 'feedApi',
    baseQuery: realWorldBaseQuery,
-   // tagTypes: ['Article', 'Articles'],
    endpoints: (builder) => ({
       getGlobalFeed: builder.query<FeedData, GlobalFeedParams>({
          keepUnusedDataFor: 1,
@@ -50,13 +49,6 @@ export const feedApi = createApi({
             }
          }),
          transformResponse,
-         // providesTags: result => 
-         // result 
-            // ? result?.articles.map(article => ({
-         //       type: 'Article',
-         //       slug: article.slug,
-         //    }))
-         //    : ['Articles'],
       }),
       getProfileFeed: builder.query<FeedData, ProfileFeedParams>({
          keepUnusedDataFor: 1,
@@ -70,7 +62,6 @@ export const feedApi = createApi({
             }
          }),
          transformResponse,
-         // providesTags: ['Articles'],
       }),
       getPopularTags: builder.query<PopularTagsInDTO, any>({
          query: () => ({
@@ -92,7 +83,6 @@ export const feedApi = createApi({
             url: `/articles/${slug}/favorite`,
             method: 'post',
          }),
-         // invalidatesTags: ['Articles'],
          onQueryStarted: async ({}, { dispatch, queryFulfilled, getState }) => {
             await replaceCachedArticle(getState, queryFulfilled, dispatch, feedApi)
          },
