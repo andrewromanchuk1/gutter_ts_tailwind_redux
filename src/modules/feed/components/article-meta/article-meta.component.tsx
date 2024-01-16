@@ -27,6 +27,7 @@ const ArticleMeta: FC<ArticleMetaProps> = ({
    authorNameSize = 'BASE',
    isFavorited,
 }) => {
+   
   return (
    <div>
       <div className='inline-block'>
@@ -40,7 +41,7 @@ const ArticleMeta: FC<ArticleMetaProps> = ({
       </div>
       {showActionButtons && (
          <div className='inline-flex gap-1'>
-            <FollowButton username={author.username} btnStyle='LIGHT'/>
+            <FollowButton username={author.username} btnStyle='LIGHT' isFollowed={author.following}/>
             <FavoriteButton count={likes || 0} extended slug={slug} isFavorited={isFavorited}/>
          </div>
       )}

@@ -7,7 +7,6 @@ import { realWorldBaseQuery } from '../../../core/api/realworld-base-query';
 import { SingleArticleInDTO } from './dto/single-article.in';
 import { ArticleCommentsInDTO } from './dto/article-comments.in';
 import { favoriteArticleInDTO } from './dto/favorite-article.in';
-import { RootState } from '../../../store/store';
 
 interface BaseFeedParams {
    page: number;
