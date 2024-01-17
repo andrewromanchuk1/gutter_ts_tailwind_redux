@@ -5,6 +5,7 @@ import FavoriteButton from '../favourite-button/favorite-button.component'
 import { Author } from '../../api/dto/global-feed.in';
 import { useAuth } from '../../../auth/hooks/use-auth';
 import Button from '../../../../common/components/button/button.component';
+import { useNavigate } from 'react-router-dom';
 
 interface ArticleMetaProps {
    author: Author;
@@ -29,7 +30,12 @@ const ArticleMeta: FC<ArticleMetaProps> = ({
    authorNameSize = 'BASE',
    isFavorited,
 }) => {
-const { user } = useAuth();
+   const { user } = useAuth();
+   const navigate = useNavigate();
+
+   const navigateToEdit = () => {
+      navigate(`/editor/${slug}`);
+   }
 
   return (
    <div>
@@ -47,7 +53,7 @@ const { user } = useAuth();
             { 
                user?.username === author.username ? (
                   <>
-                     <Button>
+                     <Button onClick={navigateToEdit}>
                         <i className='ion-edit'/> Edit Article 
                      </Button>
                      <Button btnStyle='DANGER'>

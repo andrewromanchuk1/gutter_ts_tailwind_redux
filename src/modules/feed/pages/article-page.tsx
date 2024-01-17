@@ -22,11 +22,15 @@ const ArticlePage: FC<ArticlePageProps> = () => {
   const {data, isLoading} = useGetSingleArticleQuery({slug: slug!});
 
   if(isLoading) {
-    return <h1>Loading...</h1>
+    return <Container>
+      <h1>Loading...</h1>
+    </Container>
   }
 
   if(!data) {
-    return <h1>Article not found</h1>
+    return <Container>
+      <h1>Article not found</h1>
+    </Container>
   }
   
   return (

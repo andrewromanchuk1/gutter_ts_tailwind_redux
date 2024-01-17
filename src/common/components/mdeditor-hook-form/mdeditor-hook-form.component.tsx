@@ -24,8 +24,6 @@ const MDEditorHookForm: FC<MDEditorHookFormProps> = ({
                color: 'black',
                
             }}
-            hideToolbar={true}
-            visibleDragbar={false}
             data-color-mode='light'
          />
          )}

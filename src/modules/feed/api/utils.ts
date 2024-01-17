@@ -48,11 +48,30 @@ const updateFeed = <T>(
                } else {
                   draft.article.favorited = data.article.favorited;
                   draft.article.favoritesCount = data.article.favoritesCount;
+                  draft.article.tagList = data.article.tagList;
                }
             }
          )
       )
    }
+}
+
+export const replaceCachedArticle = async (
+   getState: any,
+   queryFulfilled: any,
+   dispatch: any,
+   feedApi: any,
+) => {
+   const state = getState() as RootState;
+            
+   try {
+      const { data } = await queryFulfilled;
+      const feedKeys = Object.keys(state.feedApi.queries);
+      
+      updateFeed('getGlobalFeed', data, feedKeys, state, dispatch, feedApi);
+      updateFeed('getProfileFeed', data, feedKeys, state, dispatch, feedApi);
+      updateFeed('getSingleArticle', data, feedKeys, state, dispatch, feedApi);
+   } catch(e) {}
 }
 
 const updateProfile = <T>(
@@ -86,31 +105,12 @@ const updateProfile = <T>(
    }
 }
 
-export const replaceCachedArticle = async (
-   getState: any,
-   queryFulfilled: any,
-   dispatch: any,
-   feedApi: any,
-) => {
-   const state = getState() as RootState;
-            
-   try {
-      const { data } = await queryFulfilled;
-      const feedKeys = Object.keys(state.feedApi.queries);
-      
-      updateFeed('getGlobalFeed', data, feedKeys, state, dispatch, feedApi);
-      updateFeed('getProfileFeed', data, feedKeys, state, dispatch, feedApi);
-      updateFeed('getSingleArticle', data, feedKeys, state, dispatch, feedApi);
-   } catch(e) {}
-}
-
 export const replacesCachedProfileInArticle = async (
    getState: any,
    queryFulfilled: any,
    dispatch: any,
 ) => {
    const state = getState() as RootState;
-
 
    try {
       const { data } = await queryFulfilled;

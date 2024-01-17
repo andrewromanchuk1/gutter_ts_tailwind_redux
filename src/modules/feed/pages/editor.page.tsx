@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import Input from '../../../common/components/input/input.component'
 import Container from '../../../common/components/container/container.component'
@@ -6,10 +6,12 @@ import MDEditorHookForm from '../../../common/components/mdeditor-hook-form/mded
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import Button from '../../../common/components/button/button.component'
-import { useCreateArticleMutation } from '../api/repository'
-import { useNavigate } from 'react-router-dom'
+import { useCreateArticleMutation, useEditArticleMutation, useGetSingleArticleQuery } from '../api/repository'
+import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import ErrorsList from '../../../common/components/errors-list/errors-list.component'
+import { CreateArticleInDTO } from '../api/dto/create-article.in'
+import { EditArticleInDTO } from '../api/dto/edit-article.in'
 
 interface EditorPageProps {}
 
@@ -28,12 +30,16 @@ const validationSchema = yup.object({
 })
 
 const EditorPage: FC<EditorPageProps> = () => {
+  
+  const [ triggerCreateArticle ] = useCreateArticleMutation();
+  const [ triggeEditArticle ] = useEditArticleMutation();
 
   const { 
     register, 
     control, 
     handleSubmit, 
     formState: { errors, isSubmitting },
+    reset,
   } = useForm<EditorFormValues>({
     defaultValues: {
       title: '',
@@ -44,17 +50,50 @@ const EditorPage: FC<EditorPageProps> = () => {
     resolver: yupResolver(validationSchema),
   })
 
-  const [ triggerCreateArticle ] = useCreateArticleMutation();
+  const { slug } = useParams(); 
 
+  const { data, isLoading } = useGetSingleArticleQuery(
+    { slug: slug! }, 
+    { skip: !Boolean(slug)}
+  )
+  
   const navigate = useNavigate();
 
   const onSubmit = async (values: EditorFormValues) => {
     try {
-      const payload = await triggerCreateArticle(values).unwrap();
-      navigate(`/article/${payload.article.slug}`);
+      let payload: CreateArticleInDTO | EditArticleInDTO;
+      if(slug) {
+        payload = await triggeEditArticle({ ...values, slug }).unwrap();
+        navigate(`/article/${payload.article.slug}`);
+      } else {
+        payload = await triggerCreateArticle(values).unwrap();
+        navigate(`/article/${payload.article.slug}`);
+      }
+      
     } catch (error) {
       toast.error('Something wen\'t wrong. Please, try again later')
     }
+  }
+
+  
+
+  useEffect(() => {
+    if(!data) {
+      return;
+    }
+
+    reset({
+      title: data.article.title,
+      description: data.article.description,
+      body: data.article.body,
+      tags: data.article.tagList.join(', '),
+    })
+  }, [data])
+
+  if( slug && isLoading ) {
+    return <Container>
+      Loading...
+    </Container>
   }
 
   return (

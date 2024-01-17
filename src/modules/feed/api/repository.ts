@@ -9,6 +9,8 @@ import { ArticleCommentsInDTO } from './dto/article-comments.in';
 import { favoriteArticleInDTO } from './dto/favorite-article.in';
 import { CreateArticleInDTO } from './dto/create-article.in';
 import { CreateArticleOutDTO } from './dto/create-article.out';
+import { EditArticleOutDTO } from './dto/edit-article.out';
+import { EditArticleInDTO } from './dto/edit-article.in';
 
 interface BaseFeedParams {
    page: number;
@@ -42,6 +44,9 @@ export interface CreateArticleParams {
    tags?: string
 }
  
+export interface EditArticleParams extends CreateArticleParams {
+   slug: string;
+}
 
 export const feedApi = createApi({
    reducerPath: 'feedApi',
@@ -81,6 +86,7 @@ export const feedApi = createApi({
          })
       }),
       getSingleArticle: builder.query<SingleArticleInDTO, SingleArticleParams>({
+         keepUnusedDataFor: 1,
          query: ({ slug }) => ({
             url: `/articles/${slug}`
          })
@@ -128,7 +134,28 @@ export const feedApi = createApi({
                data
             }
          }
-      })
+      }),
+      editArticle: builder.mutation<EditArticleInDTO, EditArticleParams>({
+         query: ({ title, description, body, tags, slug }) => {
+            const data: EditArticleOutDTO = {
+               article: {
+                  title,
+                  description,
+                  body,
+                  tagList: tags ? tags.split(',').map(e => e.trim()) : [],
+               }
+            }
+
+            return {
+               url: `/articles/${slug}`,
+               method: 'put',
+               data
+            }
+         },
+         onQueryStarted: async ({}, { dispatch, queryFulfilled, getState }) => {
+            await replaceCachedArticle(getState, queryFulfilled, dispatch, feedApi)
+         },
+      }),
    })
 })
 
@@ -141,4 +168,5 @@ export const {
    useFavoriteArticleMutation,
    useUnfavoriteArticleMutation,
    useCreateArticleMutation,
+   useEditArticleMutation,
 } = feedApi;
