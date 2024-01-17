@@ -6,6 +6,7 @@ import ArticleMeta from "../components/article-meta/article-meta.component"
 import { useGetSingleArticleQuery } from "../api/repository"
 import { useParams } from "react-router-dom"
 import CommentsList from "../components/comments-list/comments-list.componnent"
+import MDEditor from "@uiw/react-md-editor"
 
 
 interface ArticlePageProps {}
@@ -40,13 +41,14 @@ const ArticlePage: FC<ArticlePageProps> = () => {
       />
       <Container>
         <div className="pb-8 border-b mb-6">
-          <p className="font-sourceSerif text-articleBody leading-articleBody mb-8" dangerouslySetInnerHTML={{
-            __html: convertNewLines(data.article.body)
-          }}/>
+          <MDEditor.Markdown 
+            source={convertNewLines(data.article.body)} 
+            className="font-sourceSerif text-articleBody leading-articleBody mb-8 bg-white text-conduit-gray-1000" 
+          />
           <TagList list={data.article.tagList}/>
         </div> 
         <div className="flex justify-center">
-          <ArticleMeta
+          <ArticleMeta 
             author={data.article.author}
             likes={data.article.favoritesCount}
             publishedAt={data.article.createdAt}

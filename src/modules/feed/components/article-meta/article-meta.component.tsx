@@ -3,6 +3,8 @@ import FollowButton from '../../../profile/components/follow-button/follow-butto
 import ArticleAuthor, { NameStyleEnum } from '../article-author/article-author.component'
 import FavoriteButton from '../favourite-button/favorite-button.component'
 import { Author } from '../../api/dto/global-feed.in';
+import { useAuth } from '../../../auth/hooks/use-auth';
+import Button from '../../../../common/components/button/button.component';
 
 interface ArticleMetaProps {
    author: Author;
@@ -27,7 +29,8 @@ const ArticleMeta: FC<ArticleMetaProps> = ({
    authorNameSize = 'BASE',
    isFavorited,
 }) => {
-   
+const { user } = useAuth();
+
   return (
    <div>
       <div className='inline-block'>
@@ -41,8 +44,30 @@ const ArticleMeta: FC<ArticleMetaProps> = ({
       </div>
       {showActionButtons && (
          <div className='inline-flex gap-1'>
-            <FollowButton username={author.username} btnStyle='LIGHT' isFollowed={author.following}/>
-            <FavoriteButton count={likes || 0} extended slug={slug} isFavorited={isFavorited}/>
+            { 
+               user?.username === author.username ? (
+                  <>
+                     <Button>
+                        <i className='ion-edit'/> Edit Article 
+                     </Button>
+                     <Button btnStyle='DANGER'>
+                        <i className='ion-trash-a'/> Delete Article 
+                     </Button>
+                  </>
+               )  : (
+                  <>           
+                     <FollowButton 
+                        username={author.username} 
+                        btnStyle='LIGHT' 
+                        isFollowed={author.following}
+                     />
+                     <FavoriteButton 
+                        count={likes || 0} 
+                        extended slug={slug} 
+                        isFavorited={isFavorited}
+                     />
+                  </>               
+            )}
          </div>
       )}
       

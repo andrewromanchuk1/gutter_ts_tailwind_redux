@@ -34,7 +34,6 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({
     } else {
       await triggerFavoriteMutation({ slug })
     }
-    // await triggerFavoriteMutation({ slug })
   }
 
   return (

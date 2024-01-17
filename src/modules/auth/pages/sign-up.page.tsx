@@ -8,6 +8,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import Button from '../../../common/components/button/button.component'
 import { toast } from 'react-toastify'
 import { useAuth } from '../hooks/use-auth'
+import ErrorsList from '../../../common/components/errors-list/errors-list.component'
 
 type SignUpPageProps = {}
 
@@ -53,12 +54,7 @@ const SignUpPage: FC<SignUpPageProps> = () => {
         <Link to='/login' className='pt-10'>Have an account?</Link>
       </p>
       <form className='max-w-xl mx-auto flex flex-col gap-4' onSubmit={handleSubmit(onSubmit)}>
-        <dl className='pl-7'>
-          {(Object.keys(formState.errors) as (keyof typeof formState.errors)[]
-            ).map((err, id) => (
-              <li key={id} className='text-conduit-red font-bold'>{formState.errors[err]?.message}</li>
-          ))}
-        </dl>
+        <ErrorsList errors={formState.errors} />
         <Input placeholder='Username' {...register('username')}/>
         <Input placeholder='Email' {...register('email')} type='email'/>
         <Input placeholder='Password' {...register('password')} type='password'/>

@@ -5,6 +5,7 @@ export enum ButtonStyleEnum {
   DARK = 'DARK',
   LIGHT = 'LIGHT',
   GREEN = 'GREEN',
+  DANGER = 'DANGER',
 }
 
 enum ButtonSizeEnum {
@@ -37,7 +38,7 @@ const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
    const btnClasses = clsx(
       'text-center align-middle cursor-pointer select-none border disabled:opacity-70',
       {
-         'border-conduit-gray-700 text-conduit-gray-700 hover:bg-conduit-gray-400  active:text-conduit-gray-700 active:bg-conduit-gray-650':
+         'border-conduit-gray-700 text-conduit-gray-700 hover:text-white hover:bg-conduit-gray-500  active:text-white active:bg-conduit-gray-650':
             btnStyle === ButtonStyleEnum.DARK,
          'border-conduit-gray-400 text-conduit-gray-400 hover:bg-conduit-gray-400 hover:text-white active:bg-conduit-gray-650':
             btnStyle === ButtonStyleEnum.LIGHT,
@@ -47,6 +48,8 @@ const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
             btnStyle === ButtonStyleEnum.GREEN && variant === ButtonVariantEnum.BASE,
          'bg-white text-conduit-green hover:text-white hover:bg-conduit-green active:bg-conduit-darkestGreen active:border-conduit-darkestGreen disabled:bg-conduit-darkGreen disabled:text-white' :
             btnStyle === ButtonStyleEnum.GREEN && variant === ButtonVariantEnum.OUTLINE,
+         'border-conduit-red text-conduit-red hover:bg-conduit-red hover:text-white focus:bg-conduit-red' : 
+            btnStyle === ButtonStyleEnum.DANGER,
          'py-1 px-2 text-sm rounded-btnSm': size === ButtonSizeEnum.BASE,
          'py-3 px-7 text-xl rounded-btnSm': size === ButtonSizeEnum.LG,
       }

@@ -1,4 +1,10 @@
+import clsx from 'clsx';
 import { ComponentProps, forwardRef } from 'react'
+
+enum InputSize {
+   SM = 'SM',
+   BASE = 'BASE',
+}
 
 type InputProps = {
    placeholder: ComponentProps<'input'>['placeholder'];
@@ -6,14 +12,22 @@ type InputProps = {
    onChange: ComponentProps<'input'>['onChange'];
    onBlur: ComponentProps<'input'>['onBlur'];
    type?: ComponentProps<'input'>['name'];
+   size?: keyof typeof InputSize;
 }
 
-const Input = forwardRef<HTMLInputElement, InputProps>(( { ...inputProps }, ref) => {
+const Input = forwardRef<HTMLInputElement, InputProps>(( {size = InputSize.BASE, ...inputProps }, ref) => {
+const inputClasses = clsx(
+   'border border-black/15 rounded w-full', {
+      'py-3 px-6 text-xl': size === InputSize.BASE,
+      'py-1 px-2 text-base': size === InputSize.SM,
+   }
+   )
+
    return (
       <input
          ref={ref}
          {...inputProps}
-         className='border border-black/15 rounded py-3 px-6 text-xl w-full'
+         className={inputClasses}
       />
    )
 })
