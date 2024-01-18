@@ -6,6 +6,8 @@ import { Author } from '../../api/dto/global-feed.in';
 import { useAuth } from '../../../auth/hooks/use-auth';
 import Button from '../../../../common/components/button/button.component';
 import { useNavigate } from 'react-router-dom';
+import { useDeleteArticleMutation } from '../../api/repository';
+import { toast } from 'react-toastify';
 
 interface ArticleMetaProps {
    author: Author;
@@ -30,11 +32,25 @@ const ArticleMeta: FC<ArticleMetaProps> = ({
    authorNameSize = 'BASE',
    isFavorited,
 }) => {
+
    const { user } = useAuth();
+
    const navigate = useNavigate();
 
    const navigateToEdit = () => {
       navigate(`/editor/${slug}`);
+   }
+
+
+   const [ triggerDeleteArticle, { isLoading } ] = useDeleteArticleMutation();
+
+   const handleDeleteArticle = async () => {
+      try {
+         await triggerDeleteArticle({ slug });
+         navigate('/'); 
+      } catch (error) {
+         toast.error('WTF')
+      }
    }
 
   return (
@@ -53,10 +69,16 @@ const ArticleMeta: FC<ArticleMetaProps> = ({
             { 
                user?.username === author.username ? (
                   <>
-                     <Button onClick={navigateToEdit}>
+                     <Button 
+                        onClick={navigateToEdit}
+                     >
                         <i className='ion-edit'/> Edit Article 
                      </Button>
-                     <Button btnStyle='DANGER'>
+                     <Button 
+                        btnStyle='DANGER' 
+                        onClick={handleDeleteArticle} 
+                        disabled={isLoading}
+                     >
                         <i className='ion-trash-a'/> Delete Article 
                      </Button>
                   </>

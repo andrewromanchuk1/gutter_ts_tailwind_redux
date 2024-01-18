@@ -37,6 +37,10 @@ interface FavoriteArticleParams {
    slug: string
 }
 
+interface DeleteArticleParams {
+   slug: string;
+}
+
 export interface CreateArticleParams {
    title: string
    description: string
@@ -52,9 +56,11 @@ export const feedApi = createApi({
    reducerPath: 'feedApi',
    baseQuery: realWorldBaseQuery,
    endpoints: (builder) => ({
+
       // ======== ======== ========
       //           queries
       // ======== ======== ========
+
       getGlobalFeed: builder.query<FeedData, GlobalFeedParams>({
          keepUnusedDataFor: 1,
          query: ({page, tag, isPersonalFeed}) => ({
@@ -67,6 +73,7 @@ export const feedApi = createApi({
          }),
          transformResponse,
       }),
+
       getProfileFeed: builder.query<FeedData, ProfileFeedParams>({
          keepUnusedDataFor: 1,
          query: ({page, author, isFavorited = false}) => ({
@@ -80,17 +87,20 @@ export const feedApi = createApi({
          }),
          transformResponse,
       }),
+      
       getPopularTags: builder.query<PopularTagsInDTO, any>({
          query: () => ({
             url: '/tags'
          })
       }),
+
       getSingleArticle: builder.query<SingleArticleInDTO, SingleArticleParams>({
          keepUnusedDataFor: 1,
          query: ({ slug }) => ({
             url: `/articles/${slug}`
          })
       }),
+
       getCommentsForArticle: builder.query<ArticleCommentsInDTO, SingleArticleParams>({
          query: ({ slug }) => ({
             url: `/articles/${slug}/comments`
@@ -99,6 +109,7 @@ export const feedApi = createApi({
       // ======== ======== ========
       //          mutations
       // ======== ======== ========
+
       favoriteArticle: builder.mutation<favoriteArticleInDTO, FavoriteArticleParams>({
          query: ({ slug }) => ({
             url: `/articles/${slug}/favorite`,
@@ -108,6 +119,7 @@ export const feedApi = createApi({
             await replaceCachedArticle(getState, queryFulfilled, dispatch, feedApi)
          },
       }),
+
       unfavoriteArticle: builder.mutation<favoriteArticleInDTO, FavoriteArticleParams>({
          query: ({ slug }) => ({
             url: `/articles/${slug}/favorite`,
@@ -117,6 +129,7 @@ export const feedApi = createApi({
             await replaceCachedArticle(getState, queryFulfilled, dispatch, feedApi)
          } 
       }),
+
       createArticle: builder.mutation<CreateArticleInDTO, CreateArticleParams>({
          query: ({ title, description, body, tags }) => {
             const data: CreateArticleOutDTO = {
@@ -135,6 +148,7 @@ export const feedApi = createApi({
             }
          }
       }),
+
       editArticle: builder.mutation<EditArticleInDTO, EditArticleParams>({
          query: ({ title, description, body, tags, slug }) => {
             const data: EditArticleOutDTO = {
@@ -156,6 +170,13 @@ export const feedApi = createApi({
             await replaceCachedArticle(getState, queryFulfilled, dispatch, feedApi)
          },
       }),
+
+      deleteArticle: builder.mutation<any, DeleteArticleParams>({
+         query: ({ slug }) => ({
+            url: `/articles/${slug}`,
+            method: 'delete',
+         })
+      })
    })
 })
 
@@ -169,4 +190,5 @@ export const {
    useUnfavoriteArticleMutation,
    useCreateArticleMutation,
    useEditArticleMutation,
+   useDeleteArticleMutation,
 } = feedApi;

@@ -48,7 +48,7 @@ const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
             btnStyle === ButtonStyleEnum.GREEN && variant === ButtonVariantEnum.BASE,
          'bg-white text-conduit-green hover:text-white hover:bg-conduit-green active:bg-conduit-darkestGreen active:border-conduit-darkestGreen disabled:bg-conduit-darkGreen disabled:text-white' :
             btnStyle === ButtonStyleEnum.GREEN && variant === ButtonVariantEnum.OUTLINE,
-         'border-conduit-red text-conduit-red hover:bg-conduit-red hover:text-white focus:bg-conduit-red' : 
+         'border-conduit-red text-conduit-red hover:bg-conduit-red hover:text-white focus:bg-conduit-red disabled:bg-conduit-red disabled:text-white disabled:cursor-not-allowed' : 
             btnStyle === ButtonStyleEnum.DANGER,
          'py-1 px-2 text-sm rounded-btnSm': size === ButtonSizeEnum.BASE,
          'py-3 px-7 text-xl rounded-btnSm': size === ButtonSizeEnum.LG,

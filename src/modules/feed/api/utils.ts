@@ -79,8 +79,7 @@ const updateProfile = <T>(
    data: {profile: Profile},
    feedKeys: string[], 
    state: RootState, 
-   dispatch: any,
-   
+   dispatch: any,   
 ) => {
    for(
       let i = 0,
