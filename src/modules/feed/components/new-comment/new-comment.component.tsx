@@ -27,7 +27,7 @@ const NewComment: FC<NewCommentProps> = ({ slug }) => {
 
    const { isLoggedIn, user } = useAuth();
 
-   const { register, handleSubmit, formState } = useForm({
+   const { register, handleSubmit, formState, reset } = useForm({
       defaultValues: {
          comment: '',
       },
@@ -36,7 +36,9 @@ const NewComment: FC<NewCommentProps> = ({ slug }) => {
 
    const onSubmit = async (values: NewCommentFormValues) => {
       try {         
-         await triggerNewComment({articleSlug: slug, comment: values.comment})
+         await triggerNewComment({articleSlug: slug, comment: values.comment});
+         reset({ comment: ''});
+
       } catch (error) {
          toast.error('Something gone wrong')
       }

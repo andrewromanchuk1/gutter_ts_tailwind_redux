@@ -2,7 +2,7 @@ import { createApi } from '@reduxjs/toolkit/query/react'
 import { FeedArticle } from './dto/global-feed.in';
 import { FEED_PAGE_SIZE } from '../consts';
 import { PopularTagsInDTO } from './dto/popular-tags.in';
-import { addNewCommentToCache, replaceCachedArticle, transformResponse } from './utils';
+import { addNewCommentToCache, removeCommentFromCache, replaceCachedArticle, transformResponse } from './utils';
 import { realWorldBaseQuery } from '../../../core/api/realworld-base-query';
 import { SingleArticleInDTO } from './dto/single-article.in';
 import { ArticleCommentsInDTO } from './dto/article-comments.in';
@@ -55,6 +55,10 @@ interface CreateArticleParams {
 interface NewCommentParams {
    articleSlug: string;
    comment: string;
+}
+interface DeleteCommentParams {
+   articleSlug: string;
+   id: number;
 }
 
 export const feedApi = createApi({
@@ -199,7 +203,16 @@ export const feedApi = createApi({
          onQueryStarted: async ({}, { dispatch, queryFulfilled, getState }) => {
             await addNewCommentToCache(getState, queryFulfilled, dispatch);
          },
-      })
+      }),
+      deleteComment: builder.mutation<any, DeleteCommentParams>({
+         query: ({ articleSlug, id }) => ({
+            url: `/articles/${articleSlug}/comments/${id}`,
+            method: 'delete',
+         }),
+         onQueryStarted: async ({ id }, { dispatch, queryFulfilled, getState }) => {
+            await removeCommentFromCache(getState, queryFulfilled, dispatch, { id });
+         },
+      }),
    })
 })
 
@@ -215,4 +228,5 @@ export const {
    useEditArticleMutation,
    useDeleteArticleMutation,
    useCreateCommentMutation,
+   useDeleteCommentMutation,
 } = feedApi;

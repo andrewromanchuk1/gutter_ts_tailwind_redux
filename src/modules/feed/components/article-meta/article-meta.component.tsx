@@ -49,7 +49,7 @@ const ArticleMeta: FC<ArticleMetaProps> = ({
          await triggerDeleteArticle({ slug });
          navigate('/'); 
       } catch (error) {
-         toast.error('WTF')
+         toast.error('Something wen\'t wrong')
       }
    }
 

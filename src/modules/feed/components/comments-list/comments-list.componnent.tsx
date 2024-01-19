@@ -10,7 +10,6 @@ type CommentsListProps = {}
 const CommentsList: FC<CommentsListProps> = () => {
    const { slug } = useParams();
    const { data, isLoading } = useGetCommentsForArticleQuery({slug: slug!})
-   const { isLoggedIn } = useAuth();
 
    if(isLoading) {
       return <p>Loading...</p>
@@ -35,6 +34,7 @@ const CommentsList: FC<CommentsListProps> = () => {
                key={comment.id}
                slug={slug!}
                isFavorited={false}
+               commentId={comment.id}
             />
          ))}
       </div>
