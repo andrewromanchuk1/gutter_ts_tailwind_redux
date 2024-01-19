@@ -2,7 +2,7 @@ import { createApi } from '@reduxjs/toolkit/query/react'
 import { FeedArticle } from './dto/global-feed.in';
 import { FEED_PAGE_SIZE } from '../consts';
 import { PopularTagsInDTO } from './dto/popular-tags.in';
-import { replaceCachedArticle, transformResponse } from './utils';
+import { addNewCommentToCache, replaceCachedArticle, transformResponse } from './utils';
 import { realWorldBaseQuery } from '../../../core/api/realworld-base-query';
 import { SingleArticleInDTO } from './dto/single-article.in';
 import { ArticleCommentsInDTO } from './dto/article-comments.in';
@@ -11,6 +11,8 @@ import { CreateArticleInDTO } from './dto/create-article.in';
 import { CreateArticleOutDTO } from './dto/create-article.out';
 import { EditArticleOutDTO } from './dto/edit-article.out';
 import { EditArticleInDTO } from './dto/edit-article.in';
+import { NewCommentInDTO } from './dto/new-comment.in';
+import { NewCommentOutDTO } from './dto/new-comment.out';
 
 interface BaseFeedParams {
    page: number;
@@ -40,16 +42,19 @@ interface FavoriteArticleParams {
 interface DeleteArticleParams {
    slug: string;
 }
-
-export interface CreateArticleParams {
+interface CreateArticleParams {
    title: string
    description: string
    body: string
    tags?: string
 }
- 
-export interface EditArticleParams extends CreateArticleParams {
+ interface EditArticleParams extends CreateArticleParams {
    slug: string;
+}
+
+interface NewCommentParams {
+   articleSlug: string;
+   comment: string;
 }
 
 export const feedApi = createApi({
@@ -102,6 +107,7 @@ export const feedApi = createApi({
       }),
 
       getCommentsForArticle: builder.query<ArticleCommentsInDTO, SingleArticleParams>({
+         keepUnusedDataFor: 1,   
          query: ({ slug }) => ({
             url: `/articles/${slug}/comments`
          })
@@ -176,6 +182,23 @@ export const feedApi = createApi({
             url: `/articles/${slug}`,
             method: 'delete',
          })
+      }),
+      createComment: builder.mutation<NewCommentInDTO, NewCommentParams>({
+         query: ({ articleSlug, comment }) => {
+            const data: NewCommentOutDTO = {
+               comment: {
+                  body: comment
+               } 
+            }
+            return {
+               url: `/articles/${articleSlug}/comments`,
+               method: 'post',
+               data,
+            }
+         },
+         onQueryStarted: async ({}, { dispatch, queryFulfilled, getState }) => {
+            await addNewCommentToCache(getState, queryFulfilled, dispatch);
+         },
       })
    })
 })
@@ -191,4 +214,5 @@ export const {
    useCreateArticleMutation,
    useEditArticleMutation,
    useDeleteArticleMutation,
+   useCreateCommentMutation,
 } = feedApi;

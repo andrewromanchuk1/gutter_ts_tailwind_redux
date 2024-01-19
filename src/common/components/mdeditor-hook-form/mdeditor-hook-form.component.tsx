@@ -1,8 +1,8 @@
 import MDEditor from '@uiw/react-md-editor'
-import { FC } from 'react'
+import { ComponentProps, FC } from 'react'
 import { Control, Controller } from 'react-hook-form'
 
-interface MDEditorHookFormProps {
+interface MDEditorHookFormProps extends ComponentProps<typeof MDEditor> {
    name: string;
    control: Control<any>;
 }
@@ -10,6 +10,7 @@ interface MDEditorHookFormProps {
 const MDEditorHookForm: FC<MDEditorHookFormProps> = ({
    name,
    control,
+   ...props
 }) => {
    return (
       <Controller
@@ -25,6 +26,7 @@ const MDEditorHookForm: FC<MDEditorHookFormProps> = ({
                
             }}
             data-color-mode='light'
+            {...props}
          />
          )}
       />

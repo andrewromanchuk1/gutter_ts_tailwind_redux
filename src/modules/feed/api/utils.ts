@@ -4,6 +4,7 @@ import { FeedArticle, GlobalFeedInDTO } from "./dto/global-feed.in"
 import { FeedData, feedApi } from "./repository";
 import { SingleArticleInDTO } from "./dto/single-article.in";
 import { Profile } from "../../profile/api/dto/follow-user.in";
+import { ArticleCommentsInDTO } from "./dto/article-comments.in";
 
 export const transformResponse = (response: GlobalFeedInDTO) => {
    return {
@@ -116,5 +117,42 @@ export const replacesCachedProfileInArticle = async (
       const feedKeys = Object.keys(state.feedApi.queries);
       
       updateProfile('getSingleArticle', data, feedKeys, state, dispatch);
+   } catch(e) {}
+}
+
+export const addNewCommentToCache = async (
+   getState: any,
+   queryFulfilled: any,
+   dispatch: any,
+) => {
+   const state = getState() as RootState;
+
+   try {
+      const { data } = await queryFulfilled;
+      const feedKeys = Object.keys(state.feedApi.queries);
+      const feedKey = 'getCommentsForArticle';
+
+      for(
+         let i = 0,
+            key = feedKeys[i],
+            queryItem = state.feedApi.queries[key];
+         i < feedKeys.length;
+         i++, key = feedKeys[i], queryItem = state.feedApi.queries[key]
+      ) {
+         if (!key.startsWith(feedKey)) {
+            continue;
+         }
+
+         dispatch(
+            feedApi.util.updateQueryData(
+               feedKey as any,
+               queryItem!.originalArgs,
+               (draft) => {             
+                  const original = draft as Drafted<ArticleCommentsInDTO>
+                  original.comments.unshift(data.comment)
+               }
+            )
+         )
+      }
    } catch(e) {}
 }
