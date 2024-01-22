@@ -8,7 +8,7 @@ type HeaderProps = {}
 
 const Header: React.FC<HeaderProps> = () => {
 
-   const { isLoggedIn, user, logOut } = useAuth();
+   const { isLoggedIn, user } = useAuth();
 
    const navLinkClasses = ({isActive}: {isActive: Boolean}) => clsx('py-navItem hover:text-black/60 hover:no-underline', {
       'text-black/30': !isActive,

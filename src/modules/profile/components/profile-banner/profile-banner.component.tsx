@@ -1,6 +1,5 @@
 import React from 'react'
 import Container from '../../../../common/components/container/container.component'
-import avatar from '../../../../assets/defaultAva.png'
 import FollowButton from '../follow-button/follow-button.component'
 import { Profile } from '../../api/dto/get-profile.in'
 import { useAuth } from '../../../auth/hooks/use-auth'

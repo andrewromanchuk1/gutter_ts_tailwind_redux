@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import ProfileBanner from '../components/profile-banner/profile-banner.component'
 import Feed from '../../feed/components/feed/feed.component'
 import { useGetProfileFeedQuery } from '../../feed/api/repository'

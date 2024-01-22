@@ -1,5 +1,4 @@
 import {FC} from 'react'
-import ArticleMeta from '../article-meta/article-meta.component'
 import { Author } from '../../api/dto/article-comments.in';
 import CommentMeta from '../comment-meta/comment-meta.component';
 

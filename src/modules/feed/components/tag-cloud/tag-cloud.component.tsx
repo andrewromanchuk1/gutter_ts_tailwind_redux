@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import TagList from '../tag-list/tag-list.component'
 import { useGetPopularTagsQuery } from '../../api/repository'
 

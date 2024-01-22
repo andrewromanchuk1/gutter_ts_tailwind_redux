@@ -170,7 +170,7 @@ export const removeCommentFromCache = async (
    const state = getState() as RootState;
 
    try {
-      const { data } = await queryFulfilled;
+      await queryFulfilled;
       const feedKeys = Object.keys(state.feedApi.queries);
       const feedKey = 'getCommentsForArticle';
 

@@ -8,7 +8,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Button from '../../../../common/components/button/button.component';
 import { useCreateCommentMutation } from '../../api/repository';
 import { toast } from 'react-toastify';
-import { ArticleCommentsInDTO } from '../../api/dto/article-comments.in';
 
 interface NewCommentProps {
    slug: string
