@@ -1,6 +1,7 @@
 import React, { ComponentProps } from 'react'
 import Button, { ButtonStyleEnum } from '../../../../common/components/button/button.component';
 import { useFollowUserMutation, useUnfollowUserMutation } from '../../api/repository';
+import { toast } from 'react-toastify';
 
 interface FollowButtonProps  {
   username: string;
@@ -18,11 +19,15 @@ const FollowButton: React.FC<FollowButtonProps> = ({
   const [ triggerUnfollow ] = useUnfollowUserMutation();
 
   const toggleFollow = () => {
-    if(!isFollowed) {
-      triggerFollow({username: encodeURIComponent(username)});
-    } else {
-      triggerUnfollow({username: encodeURIComponent(username)});
-    }
+    try {
+      if(!isFollowed) {
+        triggerFollow({username: encodeURIComponent(username)}).unwrap();
+      } else {
+        triggerUnfollow({username: encodeURIComponent(username)}).unwrap();
+      }
+   } catch (error) {
+      toast.error('Something wen\'t wrong')
+   }
   }
 
   return (

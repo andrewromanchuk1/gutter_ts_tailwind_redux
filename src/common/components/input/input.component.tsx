@@ -15,7 +15,13 @@ type InputProps = {
    size?: keyof typeof InputSize;
 }
 
-const Input = forwardRef<HTMLInputElement, InputProps>(( {size = InputSize.BASE, ...inputProps }, ref) => {
+const Input = forwardRef<HTMLInputElement, InputProps>((
+   { 
+      size = InputSize.BASE, 
+      ...inputProps 
+   }, 
+   ref
+) => {
 const inputClasses = clsx(
    'border border-black/15 rounded w-full', {
       'py-3 px-6 text-xl': size === InputSize.BASE,

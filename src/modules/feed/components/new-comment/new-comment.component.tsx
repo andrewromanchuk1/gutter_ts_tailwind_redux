@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { useAuth } from '../../../auth/hooks/use-auth'
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
@@ -8,9 +8,11 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Button from '../../../../common/components/button/button.component';
 import { useCreateCommentMutation } from '../../api/repository';
 import { toast } from 'react-toastify';
+import { ArticleCommentsInDTO } from '../../api/dto/article-comments.in';
 
 interface NewCommentProps {
    slug: string
+   data: number | undefined
 }
 
 interface NewCommentFormValues {
@@ -21,7 +23,7 @@ const validationSchema = yup.object({
    comment: yup.string().required(),
 })
 
-const NewComment: FC<NewCommentProps> = ({ slug }) => {
+const NewComment: FC<NewCommentProps> = ({ slug, data }) => {
 
    const [triggerNewComment] = useCreateCommentMutation();
 
@@ -36,13 +38,15 @@ const NewComment: FC<NewCommentProps> = ({ slug }) => {
 
    const onSubmit = async (values: NewCommentFormValues) => {
       try {         
-         await triggerNewComment({articleSlug: slug, comment: values.comment});
-         reset({ comment: ''});
-
+         await triggerNewComment({articleSlug: slug, comment: values.comment}).unwrap();
       } catch (error) {
          toast.error('Something gone wrong')
       }
    }
+
+   useEffect(() => {
+      reset({ comment: ''});
+   }, [data])
 
    if( !isLoggedIn ) {
       return (

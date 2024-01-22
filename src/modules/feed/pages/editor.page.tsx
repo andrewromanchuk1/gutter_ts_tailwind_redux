@@ -75,8 +75,6 @@ const EditorPage: FC<EditorPageProps> = () => {
     }
   }
 
-  
-
   useEffect(() => {
     if(!data) {
       return;

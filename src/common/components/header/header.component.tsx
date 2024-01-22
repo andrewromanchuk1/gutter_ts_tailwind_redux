@@ -12,7 +12,7 @@ const Header: React.FC<HeaderProps> = () => {
 
    const navLinkClasses = ({isActive}: {isActive: Boolean}) => clsx('py-navItem hover:text-black/60 hover:no-underline', {
       'text-black/30': !isActive,
-      'text-black/80': isActive
+      'text-black/80': isActive,
    });
 
   return (
@@ -52,21 +52,14 @@ const Header: React.FC<HeaderProps> = () => {
                                  to={`/@/${user?.username}`}
                                  className={navLinkClasses} 
                               >
-                                 <img 
-                                    alt={`${user?.username}  avatar`} 
-                                    src={user?.image} 
-                                    className='w-6 h-6 rounded-full mr-2 inline'
-                                 />
-                                 {user?.username}
-                              </NavLink>
-                           </li>
-                           <li className='ml-4'>
-                             <NavLink 
-                                 to='/' 
-                                 className='text-black/30 py-navItem hover:text-black/60 hover:no-underline' 
-                                 onClick={logOut}
-                              >
-                                 Sign out
+                                 <div className='flex items-center'>
+                                    <img 
+                                       alt={`${user?.username} avatar`} 
+                                       src={user?.image} 
+                                       className='w-5 h-5 rounded-full mr-1 inline'
+                                    /> 
+                                    {user?.username}
+                                 </div>
                               </NavLink>
                            </li>
                         </>

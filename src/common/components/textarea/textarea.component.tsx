@@ -11,8 +11,8 @@ type InputProps = {
    name: ComponentProps<'textarea'>['name'];
    onChange: ComponentProps<'textarea'>['onChange'];
    onBlur: ComponentProps<'textarea'>['onBlur'];
-   rows: ComponentProps<'textarea'>['rows'];
-   className: ComponentProps<'textarea'>['className'];
+   rows?: ComponentProps<'textarea'>['rows'];
+   className?: ComponentProps<'textarea'>['className'];
    size?: keyof typeof InputSize;
    noBorder?: boolean;
 }

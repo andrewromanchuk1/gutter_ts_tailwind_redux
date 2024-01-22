@@ -46,7 +46,7 @@ const ArticleMeta: FC<ArticleMetaProps> = ({
 
    const handleDeleteArticle = async () => {
       try {
-         await triggerDeleteArticle({ slug });
+         await triggerDeleteArticle({ slug }).unwrap();
          navigate('/'); 
       } catch (error) {
          toast.error('Something wen\'t wrong')

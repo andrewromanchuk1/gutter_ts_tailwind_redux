@@ -13,11 +13,17 @@ type ProfileBannerProps = {
 }
 
 const ProfileBanner: React.FC<ProfileBannerProps> = ({ profile }) => {
-  const { user } = useAuth();
+
+  const { user, logOut } = useAuth();
   const navigate = useNavigate();
 
   const goToSettings = () => {
     navigate(routes.settings.path)
+  }
+
+  const handleSignOut = () => {
+    logOut()
+    navigate('/')
   }
 
   return (
@@ -30,9 +36,16 @@ const ProfileBanner: React.FC<ProfileBannerProps> = ({ profile }) => {
          <div className='flex justify-end'>
           { user?.username !== profile.username 
             ? <FollowButton username={profile!.username} isFollowed={profile.following} />
-            : <Button onClick={goToSettings}>
-                <i className='ion-gear-a mr-1' />Edit profile settings
-              </Button>
+            : (
+                <div className='flex gap-5'>
+                <Button onClick={goToSettings}>
+                  <i className='ion-gear-a mr-1' />Edit profile settings
+                </Button>
+                <Button onClick={handleSignOut} btnStyle='DANGER'>
+                  <i className='ion-gear-a mr-1' />Sign Out
+                </Button>
+                </div>
+              )
           }
          </div>
       </Container>

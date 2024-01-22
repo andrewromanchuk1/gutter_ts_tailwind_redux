@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { routes } from '../../../../core/routes';
 import { useFavoriteArticleMutation, useUnfavoriteArticleMutation } from '../../api/repository';
 import Button from '../../../../common/components/button/button.component';
+import { toast } from 'react-toastify';
 
 type FavoriteButtonProps = {
   count: number;
@@ -25,15 +26,19 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({
 
 
   const handleFavoriteClick = async () => {
-    if(!isLoggedIn) {
-      navigate(routes.signIn.path)
-      return
-    }
-    if( isFavorited ) {
-      await triggerUnfavoriteMutation({ slug })
-    } else {
-      await triggerFavoriteMutation({ slug })
-    }
+    try {
+      if(!isLoggedIn) {
+        navigate(routes.signIn.path)
+        return
+      }
+      if( isFavorited ) {
+        await triggerUnfavoriteMutation({ slug }).unwrap();
+      } else {
+        await triggerFavoriteMutation({ slug }).unwrap();
+      };
+   } catch (error) {
+      toast.error('Something wen\'t wrong')
+   }
   }
 
   return (

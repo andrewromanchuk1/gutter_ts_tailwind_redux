@@ -205,7 +205,7 @@ export const feedApi = createApi({
          },
       }),
       deleteComment: builder.mutation<any, DeleteCommentParams>({
-         query: ({ articleSlug, id }) => ({
+         query: ({ articleSlug, id}) => ({
             url: `/articles/${articleSlug}/comments/${id}`,
             method: 'delete',
          }),

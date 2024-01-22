@@ -28,15 +28,14 @@ const CommentMeta: FC<CommentMetaProps> = ({
 
    const { user } = useAuth();
 
-
    const [ triggerDeleteComment, { isLoading } ] = useDeleteCommentMutation();
 
    const handleDeleteComment = async () => {
       try {
          await triggerDeleteComment({ 
             articleSlug: slug, 
-            id: commentId 
-         });
+            id: commentId, 
+         }).unwrap();
       } catch (error) {
          toast.error('Something wen\'t wrong')
       }
