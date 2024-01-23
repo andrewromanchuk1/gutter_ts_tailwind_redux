@@ -1,54 +1,19 @@
-import { FC, useEffect } from 'react'
-import { useForm } from 'react-hook-form'
-import Input from '../../../common/components/input/input.component'
+import { FC } from 'react'
 import Container from '../../../common/components/container/container.component'
-import MDEditorHookForm from '../../../common/components/mdeditor-hook-form/mdeditor-hook-form.component'
-import * as yup from 'yup'
-import { yupResolver } from '@hookform/resolvers/yup'
-import Button from '../../../common/components/button/button.component'
 import { useCreateArticleMutation, useEditArticleMutation, useGetSingleArticleQuery } from '../api/repository'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import ErrorsList from '../../../common/components/errors-list/errors-list.component'
 import { CreateArticleInDTO } from '../api/dto/create-article.in'
 import { EditArticleInDTO } from '../api/dto/edit-article.in'
+import { PostFormValues } from '../types'
+import PostForm from '../components/post-form/post-form.component'
 
 interface EditorPageProps {}
-
-export interface EditorFormValues {
-  title: string,
-  description: string,
-  body: string,
-  tags?: string,
-}
-
-const validationSchema = yup.object({
-  title: yup.string().required(),
-  description: yup.string().required(),
-  body: yup.string().required(),
-  tags: yup.string(),
-})
 
 const EditorPage: FC<EditorPageProps> = () => {
   
   const [ triggerCreateArticle ] = useCreateArticleMutation();
   const [ triggeEditArticle ] = useEditArticleMutation();
-
-  const { 
-    register, 
-    control, 
-    handleSubmit, 
-    formState: { errors, isSubmitting },
-    reset,
-  } = useForm<EditorFormValues>({
-    defaultValues: {
-      title: '',
-      description: '',
-      body: '',
-      tags: '',
-    },
-    resolver: yupResolver(validationSchema),
-  })
 
   const { slug } = useParams(); 
 
@@ -59,7 +24,7 @@ const EditorPage: FC<EditorPageProps> = () => {
   
   const navigate = useNavigate();
 
-  const onSubmit = async (values: EditorFormValues) => {
+  const onSubmit = async (values: PostFormValues) => {
     try {
       let payload: CreateArticleInDTO | EditArticleInDTO;
       if(slug) {
@@ -75,19 +40,6 @@ const EditorPage: FC<EditorPageProps> = () => {
     }
   }
 
-  useEffect(() => {
-    if(!data) {
-      return;
-    }
-
-    reset({
-      title: data.article.title,
-      description: data.article.description,
-      body: data.article.body,
-      tags: data.article.tagList.join(', '),
-    })
-  }, [data])
-
   if( slug && isLoading ) {
     return <Container>
       Loading...
@@ -96,26 +48,10 @@ const EditorPage: FC<EditorPageProps> = () => {
 
   return (
     <Container>
-      <form className='flex flex-col gap-6' onSubmit={handleSubmit(onSubmit)}>
-        <ErrorsList errors={errors} />
-        <Input placeholder='Article Title' {...register('title')}/>
-        <Input 
-          placeholder="What's this article about?" 
-          {...register('description')}
-          size='SM'
-        />
-        <MDEditorHookForm control={control} name='body'/>
-        <Input 
-          placeholder='tags' 
-          {...register('tags')}
-          size='SM'
-        />
-        <div className='text-end'>
-          <Button size='LG' type='submit' btnStyle='GREEN' disabled={isSubmitting}>
-            Publish article
-          </Button>
-        </div>
-      </form>
+      <PostForm 
+        onSubmit={onSubmit} 
+        data={data} 
+      />
     </Container>
   )
 }

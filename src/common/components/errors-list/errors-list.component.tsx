@@ -1,9 +1,9 @@
 import { FC } from 'react'
 import { FieldErrors } from 'react-hook-form';
-import { EditorFormValues } from '../../../modules/feed/pages/editor.page';
+import { PostFormValues } from '../../../modules/feed/types';
 
 type ErrorsListProps = {
-   errors: FieldErrors<EditorFormValues>;
+   errors: FieldErrors<PostFormValues>;
 }
 
 const ErrorsList: FC<ErrorsListProps> = ({ errors }) => {
