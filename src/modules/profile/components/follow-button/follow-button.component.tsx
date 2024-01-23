@@ -2,6 +2,9 @@ import React, { ComponentProps } from 'react'
 import Button, { ButtonStyleEnum } from '../../../../common/components/button/button.component';
 import { useFollowUserMutation, useUnfollowUserMutation } from '../../api/repository';
 import { toast } from 'react-toastify';
+import { useAuth } from '../../../auth/hooks/use-auth';
+import { useNavigate } from 'react-router-dom';
+import { routes } from '../../../../core/routes';
 
 interface FollowButtonProps  {
   username: string;
@@ -14,11 +17,18 @@ const FollowButton: React.FC<FollowButtonProps> = ({
   isFollowed,
   btnStyle = ButtonStyleEnum.DARK,
 }) => {
+  const { isLoggedIn } = useAuth();
+  const navigate = useNavigate()
 
   const [ triggerFollow ] = useFollowUserMutation();
   const [ triggerUnfollow ] = useUnfollowUserMutation();
 
   const toggleFollow = () => {
+    if(!isLoggedIn) {
+      navigate(routes.signUp.path);
+      return;
+    }
+
     try {
       if(!isFollowed) {
         triggerFollow({username: encodeURIComponent(username)}).unwrap();

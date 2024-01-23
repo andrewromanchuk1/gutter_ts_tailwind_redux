@@ -29,7 +29,7 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({
     try {
       if(!isLoggedIn) {
         navigate(routes.signIn.path)
-        return
+        return; 
       }
       if( isFavorited ) {
         await triggerUnfavoriteMutation({ slug }).unwrap();
