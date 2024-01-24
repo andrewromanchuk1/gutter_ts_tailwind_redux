@@ -46,13 +46,18 @@ const Feed: React.FC<FeedProps> = ({
   return (
     <>      
       <ArticleList list={data?.articles || []} />
-      <nav className='my-6'>
+      <nav className='my-6 mx-auto'>
          <ReactPaginate
             pageCount={Math.ceil((data?.articlesCount || 0 )/ FEED_PAGE_SIZE)}
-            pageRangeDisplayed={Math.ceil((data?.articlesCount || 0) / FEED_PAGE_SIZE)}
+            pageRangeDisplayed={5}
+            marginPagesDisplayed={1}
             previousLabel={null}
             nextLabel={null}
-            containerClassName='flex'
+            breakLabel='...'
+            // breakClassName='group'
+            breakLinkClassName='p-3 bg-white border border-conduit-gray-300 -ml-px hover:bg-conduit-gray-200 
+            group-[:nth-child(2)]:rounded-l group-[:nth-last-child(2)]:rounded-r'
+            containerClassName='flex justify-center'
             pageClassName='group'
             pageLinkClassName='p-3 bg-white border border-conduit-gray-300 -ml-px hover:bg-conduit-gray-200 
             group-[:nth-child(2)]:rounded-l group-[:nth-last-child(2)]:rounded-r'
@@ -61,7 +66,7 @@ const Feed: React.FC<FeedProps> = ({
                group-[.active]:border-conduit-green'
             onPageChange={handleChange}
             forcePage={page}
-            />
+         />
       </nav>
     </>
   )

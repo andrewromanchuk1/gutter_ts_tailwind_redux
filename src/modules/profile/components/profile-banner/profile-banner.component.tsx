@@ -32,7 +32,7 @@ const ProfileBanner: React.FC<ProfileBannerProps> = ({ profile }) => {
             <img src={profile.image} className='w-25 h-25 rounded-full mx-auto mb-4' alt='Username avatar'/>
             <h3 className='text-center font-bold text-2xl'>{profile.username}</h3>
          </div>
-         <div className='flex justify-end'>
+         <div className='flex justify-end mt-10'>
           { user?.username !== profile.username 
             ? <FollowButton username={profile!.username} isFollowed={profile.following} />
             : (
