@@ -1,12 +1,17 @@
 import clsx from 'clsx'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import Container from '../container/container.component'
 import { useAuth } from '../../../modules/auth/hooks/use-auth'
+import Burger from '../burger/burger.component'
+import { loggedInArr, unloggedArr } from '../burger/nav-arrays'
+
 
 type HeaderProps = {}
 
 const Header: React.FC<HeaderProps> = () => {
+
+   const [showMenu, setShowmenu] = useState<boolean>(true);
 
    const { isLoggedIn, user } = useAuth();
 
@@ -15,6 +20,20 @@ const Header: React.FC<HeaderProps> = () => {
       'text-black/80': isActive,
    });
 
+   useEffect(() => {
+      window.innerWidth <= 768 ? 
+      setShowmenu(false) :
+      setShowmenu(true) 
+   }, [])
+
+   const handleResize = (event: any) => {
+      event.target.innerWidth <= 768 ? 
+         setShowmenu(false) :
+         setShowmenu(true)
+   }
+
+   window.addEventListener('resize', handleResize)
+  
   return (
       <header>
          <nav className='px-2 py-3'>
@@ -23,57 +42,58 @@ const Header: React.FC<HeaderProps> = () => {
                   <Link to='/' className='font-titillium text-2xl mr-8 text-conduit-green hover:no-underline hover:text-conduit-green'>
                      conduit
                   </Link>
-                  <ul className='pl-0 mb-0 list-none flex'>
-                     <li>
-                        <NavLink to='/' className={navLinkClasses}>Home</NavLink>
-                     </li>
-                     { isLoggedIn ? (
-                        <>
-                           <li className='ml-4'>
-                             <NavLink 
-                                 to='/editor' 
-                                 className='text-black/30 py-navItem hover:text-black/60 hover:no-underline' 
-                              >
-                                 <i className='ion-compose mr-1' />
-                                 New article
-                              </NavLink>
-                           </li>
-                           <li className='ml-4'>
-                             <NavLink 
-                                 to='/settings' 
-                                 className='text-black/30 py-navItem hover:text-black/60 hover:no-underline' 
-                              >
-                                 <i className='ion-gear-a mr-1' />
-                                 Settings
-                              </NavLink>
-                           </li>
-                           <li className='ml-4'>
-                             <NavLink 
-                                 to={`/@/${user?.username}`}
-                                 className={navLinkClasses} 
-                              >
-                                 <div className='flex items-center'>
-                                    <img 
-                                       alt={`${user?.username} avatar`} 
-                                       src={user?.image} 
-                                       className='w-5 h-5 rounded-full mr-1 inline'
-                                    /> 
-                                    {user?.username}
-                                 </div>
-                              </NavLink>
-                           </li>
-                        </>
-                     ) : (
-                        <>
-                           <li className='ml-4'>
-                              <NavLink to='/login' className={navLinkClasses}>Sign in</NavLink>
-                           </li>
-                           <li className='ml-4'>
-                              <NavLink to='/register' className={navLinkClasses}>Sign up</NavLink>
-                           </li>
-                        </> 
-                     )}
-                  </ul>
+                  { showMenu ? (
+                     <ul className='pl-0 mb-0 list-none flex'>
+                        <li>
+                           <NavLink to='/' className={navLinkClasses}>Home</NavLink>
+                        </li>
+                        { isLoggedIn ? (
+                           <>
+                              {loggedInArr.map((el, id) => (
+                                 <li className='ml-4' key={id}>
+                                    <NavLink
+                                       to={el.to}
+                                       className={navLinkClasses}
+                                    >
+                                       <i className={el.i} />
+                                       {el.text}
+                                    </NavLink>
+                                 </li>
+                              ))}
+                              <li className='ml-4'>
+                                 <NavLink 
+                                    to={`/@/${user?.username}`}
+                                    className={navLinkClasses} 
+                                 >
+                                    <div className='flex items-center'>
+                                       <img 
+                                          alt={`${user?.username} avatar`} 
+                                          src={user?.image} 
+                                          className='w-5 h-5 rounded-full mr-1 inline'
+                                       /> 
+                                       {user?.username}
+                                    </div>
+                                 </NavLink>
+                              </li>
+                           </>
+                        ) : (
+                           <>
+                              {unloggedArr.map((el, id) => (
+                                 <li className='ml-4' key={id}>
+                                    <NavLink 
+                                       to={el.to}
+                                       className={navLinkClasses}
+                                    >
+                                       {el.text}
+                                    </NavLink>
+                                 </li>
+                              ))}
+                           </> 
+                        )}
+                     </ul>
+                  ) : (
+                     <Burger />
+                  )}
                </div>
             </Container>
          </nav>
