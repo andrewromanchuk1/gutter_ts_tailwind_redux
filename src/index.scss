@@ -9,10 +9,10 @@
       color: rgb(55, 58, 60);
    }
    a {
-      @apply text-conduit-green;
+      @apply text-gutter-green;
       &:hover {
          @apply underline;
-         @apply text-conduit-darkGreen;
+         @apply text-gutter-darkGreen;
       }
    }
  }

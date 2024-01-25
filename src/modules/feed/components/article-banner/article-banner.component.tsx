@@ -21,7 +21,7 @@ const ArticleBanner: FC<ArticleBannerProps> = ({
    isFavorited,
 }) => {
    return (
-      <div className='bg-conduit-gray-1100 pt-8 pb-4 mb-8'>
+      <div className='bg-gutter-gray-1100 pt-8 pb-4 mb-8'>
          <Container>
             <h1 className='text-white text-articleTitle font-semibold leading-articleTitle mb-8'>
                {title}

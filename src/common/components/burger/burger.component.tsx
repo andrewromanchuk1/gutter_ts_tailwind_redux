@@ -38,7 +38,7 @@ const Burger: FC<BurgerProps> = ({
          />
          { isOpen && (
             <div 
-               className='fixed bg-conduit-gray-200 left-0 right-0 top-[4.5rem] h-full text-center flex justify-center items-start transition-all z-10'
+               className='fixed bg-gutter-gray-200 left-0 right-0 top-[4.5rem] h-full text-center flex justify-center items-start transition-all z-10'
             >
                <ul className='pl-0 mb-0 list-none flex flex-col gap-10 pt-20'>
                   <li>

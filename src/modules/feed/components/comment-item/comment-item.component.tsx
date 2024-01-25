@@ -19,11 +19,11 @@ const CommentItem: FC<CommentItemProps> = ({
    commentId,
  }) => {
    return (
-      <div className="border border-conduit-gray-250 rounded">
+      <div className="border border-gutter-gray-250 rounded">
          <div className="p-5">
             <p>{body}</p>
          </div>
-         <div className="border-t border-conduit-gray-250 bg-conduit-gray-150 py-3 px-5">
+         <div className="border-t border-gutter-gray-250 bg-gutter-gray-150 py-3 px-5">
             <CommentMeta 
                author={author}
                publishedAt={createdAt}

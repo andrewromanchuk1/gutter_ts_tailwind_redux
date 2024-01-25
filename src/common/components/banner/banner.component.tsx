@@ -5,9 +5,9 @@ type BannerProps = {}
 
 const Banner: FC<BannerProps> = () => {
    return (
-      <div className='bg-conduit-green shadow-banner text-white p-8 mb-8'>
+      <div className='bg-gutter-green shadow-banner text-white p-8 mb-8'>
          <Container>
-            <h1 className='font-titillium drop-shadow-logo text-center text-logo pb-2'>conduit</h1>
+            <h1 className='font-titillium drop-shadow-logo text-center text-logo pb-2'>gutter</h1>
             <p className='text-center text-2xl '>
                A place to share your knowledge.
             </p>

@@ -54,15 +54,15 @@ const Feed: React.FC<FeedProps> = ({
             previousLabel={null}
             nextLabel={null}
             breakLabel='...'
-            breakLinkClassName='p-3 bg-white border border-conduit-gray-300 -ml-px hover:bg-conduit-gray-200 
+            breakLinkClassName='p-3 bg-white border border-gutter-gray-300 -ml-px hover:bg-gutter-gray-200 
             group-[:nth-child(2)]:rounded-l group-[:nth-last-child(2)]:rounded-r'
             containerClassName='flex justify-center'
             pageClassName='group'
-            pageLinkClassName='p-3 bg-white border border-conduit-gray-300 -ml-px hover:bg-conduit-gray-200 
+            pageLinkClassName='p-3 bg-white border border-gutter-gray-300 -ml-px hover:bg-gutter-gray-200 
             group-[:nth-child(2)]:rounded-l group-[:nth-last-child(2)]:rounded-r'
             activeClassName='active group'
-            activeLinkClassName='group-[.active]:bg-conduit-green group-[.active]:text-white 
-               group-[.active]:border-conduit-green'
+            activeLinkClassName='group-[.active]:bg-gutter-green group-[.active]:text-white 
+               group-[.active]:border-gutter-green'
             onPageChange={handleChange}
             forcePage={page}
          />

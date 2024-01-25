@@ -21,7 +21,7 @@ const FeedToggle: React.FC<FeedToggleProps> = ({
   const tag = searchParams.get('tag');
   const globalFeedClasses = ({isActive} : {isActive: boolean}) => {
     return clsx(
-      'bg-white border-conduit-green py-navItem px-4 hover:no-underline cursor-default z-5', 
+      'bg-white border-gutter-green py-navItem px-4 hover:no-underline cursor-default z-5', 
       {
         'text-black/30 hover:text-black/60 cursor-pointer': tag || !isActive,
         'border-b-2': !tag && isActive
@@ -43,7 +43,7 @@ const FeedToggle: React.FC<FeedToggleProps> = ({
           ))}
         </li>         
          { tag && (
-          <span className='bg-white border-b-2 border-conduit-green hover:no-underline pb-0.37 px-4 text-conduit-green'>
+          <span className='bg-white border-b-2 border-gutter-green hover:no-underline pb-0.37 px-4 text-gutter-green'>
             # {tag}
           </span>
          )}

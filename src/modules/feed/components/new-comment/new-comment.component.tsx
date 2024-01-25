@@ -58,7 +58,7 @@ const NewComment: FC<NewCommentProps> = ({ slug, data }) => {
    return (
       <form 
          onSubmit={handleSubmit(onSubmit)}
-         className='border border-conduit-gray-250 rounded w-100'
+         className='border border-gutter-gray-250 rounded w-100'
       >
          <TextArea 
             placeholder='Leave your comment' 
@@ -69,7 +69,7 @@ const NewComment: FC<NewCommentProps> = ({ slug, data }) => {
             className='py-3 px-6'
          />
          <div 
-            className='border-t border-conduit-gray-250 bg-conduit-gray-150 py-3 px-5 flex justify-between items-center' 
+            className='border-t border-gutter-gray-250 bg-gutter-gray-150 py-3 px-5 flex justify-between items-center' 
          >  
             <img 
                alt={`${user?.username}  avatar`} 

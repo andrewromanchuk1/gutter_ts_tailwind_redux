@@ -25,7 +25,7 @@ const ProfileBanner: React.FC<ProfileBannerProps> = ({ profile }) => {
   }
 
   return (
-    <div className='bg-conduit-gray-100 pt-8 pb-4 mb-8'>
+    <div className='bg-gutter-gray-100 pt-8 pb-4 mb-8'>
       <Container>
          <div>
             <img src={profile.image} className='w-25 h-25 rounded-full mx-auto mb-4' alt='Username avatar'/>

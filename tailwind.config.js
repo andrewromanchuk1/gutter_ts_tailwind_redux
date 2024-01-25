@@ -9,7 +9,7 @@ module.exports = {
         sourceSerif: ['Noto Serif', 'serif'],
       },
       colors: {
-        conduit: {
+        gutter: {
           gray: {
             100: '#f3f3f3',
             150: '#f5f5f5',

@@ -24,14 +24,14 @@ const Article: FC<ArticleProps> = ({
         <FavoriteButton count={favoritesCount} slug={slug} isFavorited={favorited}/>
       </div>
       <Link to={`/article/${encodeURIComponent(slug)}`} className='hover:no-underline'>
-        <h2 className='mb-1 font-semibold text-2xl text-conduit-gray-1000'>
+        <h2 className='mb-1 font-semibold text-2xl text-gutter-gray-1000'>
           {title}
         </h2>
-        <p className='text-conduit-gray-700 font-light'>
+        <p className='text-gutter-gray-700 font-light'>
           {description}
         </p>
         <div className='flex justify-between'>
-          <span className='text-conduit-gray-500 text-date font-light'>Read more...</span>
+          <span className='text-gutter-gray-500 text-date font-light'>Read more...</span>
           <TagList list={tagList}/>          
         </div>
       </Link>

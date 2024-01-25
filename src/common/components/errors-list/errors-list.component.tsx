@@ -11,7 +11,7 @@ const ErrorsList: FC<ErrorsListProps> = ({ errors }) => {
    <dl className='pl-7'>
       {(Object.keys(errors) as (keyof typeof errors)[]
          ).map((err, id) => (
-      <li key={id} className='text-conduit-red font-bold'>{errors[err]?.message}</li>
+      <li key={id} className='text-gutter-red font-bold'>{errors[err]?.message}</li>
       ))}
    </dl>
   )

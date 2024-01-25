@@ -18,7 +18,7 @@ const CommentsList: FC<CommentsListProps> = () => {
       return (        
          <div className="max-w-3xl mx-auto mt-16 flex flex-col gap-3">
             <NewComment slug={slug!} data={data?.comments.length}/>
-            <p className='mx-auto text-xl pt-6 text-conduit-darkGreen'>No comments found</p>
+            <p className='mx-auto text-xl pt-6 text-gutter-darkGreen'>No comments found</p>
          </div>          
       )
    }

@@ -38,17 +38,17 @@ const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
    const btnClasses = clsx(
       'text-center align-middle cursor-pointer select-none border disabled:opacity-70',
       {
-         'border-conduit-gray-700 text-conduit-gray-700 hover:text-white hover:bg-conduit-gray-500  active:text-white active:bg-conduit-gray-650':
+         'border-gutter-gray-700 text-gutter-gray-700 hover:text-white hover:bg-gutter-gray-500  active:text-white active:bg-gutter-gray-650':
             btnStyle === ButtonStyleEnum.DARK,
-         'border-conduit-gray-400 text-conduit-gray-400 hover:bg-conduit-gray-400 hover:text-white active:bg-conduit-gray-650':
+         'border-gutter-gray-400 text-gutter-gray-400 hover:bg-gutter-gray-400 hover:text-white active:bg-gutter-gray-650':
             btnStyle === ButtonStyleEnum.LIGHT,
-         'border-conduit-green active:bg-conduit-darkestGreen active:border-conduit-darkestGreen' :
+         'border-gutter-green active:bg-gutter-darkestGreen active:border-gutter-darkestGreen' :
             btnStyle === ButtonStyleEnum.GREEN,
-         'bg-conduit-green text-white hover:text-white hover:bg-conduit-darkGreen hover:border-conduit-darkGreen' :
+         'bg-gutter-green text-white hover:text-white hover:bg-gutter-darkGreen hover:border-gutter-darkGreen' :
             btnStyle === ButtonStyleEnum.GREEN && variant === ButtonVariantEnum.BASE,
-         'bg-white text-conduit-green hover:text-white hover:bg-conduit-green active:bg-conduit-darkestGreen active:border-conduit-darkestGreen disabled:bg-conduit-darkGreen disabled:text-white' :
+         'bg-white text-gutter-green hover:text-white hover:bg-gutter-green active:bg-gutter-darkestGreen active:border-gutter-darkestGreen disabled:bg-gutter-darkGreen disabled:text-white' :
             btnStyle === ButtonStyleEnum.GREEN && variant === ButtonVariantEnum.OUTLINE,
-         'border-conduit-red text-conduit-red hover:bg-conduit-red hover:text-white focus:bg-conduit-red disabled:bg-conduit-red disabled:text-white disabled:cursor-not-allowed' : 
+         'border-gutter-red text-gutter-red hover:bg-gutter-red hover:text-white focus:bg-gutter-red disabled:bg-gutter-red disabled:text-white disabled:cursor-not-allowed' : 
             btnStyle === ButtonStyleEnum.DANGER,
          'py-1 px-2 text-sm rounded-btnSm': size === ButtonSizeEnum.BASE,
          'py-3 px-7 text-xl rounded-btnSm': size === ButtonSizeEnum.LG,

@@ -47,7 +47,7 @@ const ArticlePage: FC<ArticlePageProps> = () => {
         <div className="pb-8 border-b mb-6">
           <MDEditor.Markdown 
             source={convertNewLines(data.article.body)} 
-            className="font-sourceSerif text-articleBody leading-articleBody mb-8 bg-white text-conduit-gray-1000" 
+            className="font-sourceSerif text-articleBody leading-articleBody mb-8 bg-white text-gutter-gray-1000" 
           />
           <TagList list={data.article.tagList}/>
         </div> 

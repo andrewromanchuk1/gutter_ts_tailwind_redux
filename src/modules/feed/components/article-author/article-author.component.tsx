@@ -63,7 +63,7 @@ const ArticleAuthor: FC<ArticleAuthorProps> = ({
             <Link to={`/@/${encodeURIComponent(author.username)}`} className={userNameClasses}>
                {author.username}
             </Link>
-            <span className='text-conduit-gray-500 text-date font-light'>{DateTime.fromISO(publishedAt).toLocaleString(DateTime.DATE_FULL)}</span>
+            <span className='text-gutter-gray-500 text-date font-light'>{DateTime.fromISO(publishedAt).toLocaleString(DateTime.DATE_FULL)}</span>
          </div> 
       </div>
    )
