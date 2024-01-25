@@ -1,0 +1,11 @@
+{
+  "files": {
+    "main.css": "/gutter_ts_tailwind_redux/static/css/main.0ce38134.css",
+    "main.js": "/gutter_ts_tailwind_redux/static/js/main.d96db486.js",
+    "index.html": "/gutter_ts_tailwind_redux/index.html"
+  },
+  "entrypoints": [
+    "static/css/main.0ce38134.css",
+    "static/js/main.d96db486.js"
+  ]
+}
