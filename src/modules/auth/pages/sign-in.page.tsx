@@ -39,7 +39,7 @@ const { signIn } = useAuth();
   const onSubmit = async (values: SignInFormValues) => {
     try {
       await signIn(values);
-      navigate('/');
+      navigate('/gutter_ts_tailwind_redux');
     } catch (error) {
       toast.error('Something wen\'t wrong. Please, try again later')
     }
