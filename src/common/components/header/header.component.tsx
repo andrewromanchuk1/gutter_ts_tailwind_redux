@@ -39,13 +39,13 @@ const Header: React.FC<HeaderProps> = () => {
          <nav className='px-2 py-3'>
             <Container>
                <div className='flex justify-between items-center'>
-                  <Link to='/' className='font-titillium text-2xl mr-8 text-gutter-green hover:no-underline hover:text-gutter-green'>
+                  <Link to='/gutter_ts_tailwind_redux' className='font-titillium text-2xl mr-8 text-gutter-green hover:no-underline hover:text-gutter-green'>
                      gutter
                   </Link>
                   { showMenu ? (
                      <ul className='pl-0 mb-0 list-none flex'>
                         <li>
-                           <NavLink to='/' className={navLinkClasses}>Home</NavLink>
+                           <NavLink to='/gutter_ts_tailwind_redux' className={navLinkClasses}>Home</NavLink>
                         </li>
                         { isLoggedIn ? (
                            <>

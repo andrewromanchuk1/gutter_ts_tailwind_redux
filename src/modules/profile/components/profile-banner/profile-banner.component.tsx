@@ -21,7 +21,7 @@ const ProfileBanner: React.FC<ProfileBannerProps> = ({ profile }) => {
 
   const handleSignOut = () => {
     logOut()
-    navigate('/')
+    navigate('/gutter_ts_tailwind_redux')
   }
 
   return (

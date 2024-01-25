@@ -14,7 +14,7 @@ interface FeedToggleProps {
 
 const FeedToggle: React.FC<FeedToggleProps> = ({
   defaultText = 'Global Feed',
-  defaultLink = '/',
+  defaultLink = '/gutter_ts_tailwind_redux',
   items = [],
 }) => {
   const [searchParams] = useSearchParams();

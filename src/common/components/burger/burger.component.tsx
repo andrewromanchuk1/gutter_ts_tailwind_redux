@@ -43,7 +43,7 @@ const Burger: FC<BurgerProps> = ({
                <ul className='pl-0 mb-0 list-none flex flex-col gap-10 pt-20'>
                   <li>
                      <NavLink 
-                        to='/' 
+                        to='/gutter_ts_tailwind_redux' 
                         className={navLinkClasses}
                         onClick={handleClickOnBurger}
                      >Home</NavLink>

@@ -11,7 +11,7 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <BrowserRouter basename='/'>
+  <BrowserRouter >
     <ToastContainer />  
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistedStore}>

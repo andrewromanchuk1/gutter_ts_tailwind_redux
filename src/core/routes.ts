@@ -15,7 +15,7 @@ interface RouteItem {
 
 export const routes: Record<string, RouteItem> = {
    globalFeed: {
-      path: '/',
+      path: '/gutter_ts_tailwind_redux',
       Element: GlobalFeedPage,
    },
    personalFeed: {

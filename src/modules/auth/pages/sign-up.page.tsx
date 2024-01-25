@@ -41,7 +41,7 @@ const SignUpPage: FC<SignUpPageProps> = () => {
   const onSubmit = async (values: SignUpFormValues) => {
     try {
       await signUp(values)
-      navigate('/');
+      navigate('/gutter_ts_tailwind_redux');
     } catch (error) {
       toast.error('Something wen\'t wrong. Please, try again later')
     }
