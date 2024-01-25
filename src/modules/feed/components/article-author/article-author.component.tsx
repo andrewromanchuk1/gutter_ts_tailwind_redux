@@ -39,7 +39,6 @@ const ArticleAuthor: FC<ArticleAuthorProps> = ({
    const userNameClasses = clsx('font-medium', {
       'text-white hover:text-white': nameStyle === NameStyleEnum.LIGHT,
       'text-date font-extralight': nameSize === NameSizeEnum.SM,
-
    })
 
    const metaClasses = clsx('mr-6 ml-0.3 inline-flex leading-4', {

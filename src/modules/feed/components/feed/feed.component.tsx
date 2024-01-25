@@ -54,7 +54,6 @@ const Feed: React.FC<FeedProps> = ({
             previousLabel={null}
             nextLabel={null}
             breakLabel='...'
-            // breakClassName='group'
             breakLinkClassName='p-3 bg-white border border-conduit-gray-300 -ml-px hover:bg-conduit-gray-200 
             group-[:nth-child(2)]:rounded-l group-[:nth-last-child(2)]:rounded-r'
             containerClassName='flex justify-center'

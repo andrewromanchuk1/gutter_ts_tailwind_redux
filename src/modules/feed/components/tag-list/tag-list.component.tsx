@@ -6,7 +6,6 @@ enum TagListStyle {
   DARK = 'DARK',
   LIGHT = 'LIGHT'
 }
-
 interface TagListProps {
    list: string[],
    itemStyle?: keyof typeof TagListStyle,

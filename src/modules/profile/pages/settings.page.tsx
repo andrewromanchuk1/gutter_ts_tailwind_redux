@@ -13,7 +13,6 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
 interface SettingsPageProps {}
-
 interface SettingsFormValues { 
    avatar: string;
    username: string;

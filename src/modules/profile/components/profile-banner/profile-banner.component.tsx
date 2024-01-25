@@ -6,8 +6,7 @@ import { useAuth } from '../../../auth/hooks/use-auth'
 import Button from '../../../../common/components/button/button.component'
 import { useNavigate } from 'react-router-dom'
 import { routes } from '../../../../core/routes'
-
-type ProfileBannerProps = {
+interface ProfileBannerProps {
   profile: Profile
 }
 
