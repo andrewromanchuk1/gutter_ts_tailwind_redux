@@ -32,7 +32,7 @@ const TagList: React.FC<TagListProps> = ({
             {item}
           </li>
         ) : (
-          <Link to={`/?tag=${item}`} key={item} className={itemClasses}>
+          <Link to={`/gutter_ts_tailwind_redux/?tag=${item}`} key={item} className={itemClasses}>
             {item}
           </Link>
         )
