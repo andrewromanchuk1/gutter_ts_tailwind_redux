@@ -9,7 +9,7 @@ export interface FeedArticle {
    description: string
    body: string
    tagList: string[]
-   publishedAt: string
+   createdAt: string
    updatedAt: string
    favorited: boolean
    favoritesCount: number
